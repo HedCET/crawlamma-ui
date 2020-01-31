@@ -1,0 +1,27 @@
+<mat-sidenav-container [style.height]="'100vh'">
+  <mat-sidenav
+    id="drawerLeft"
+    [mode]="drawerLeftMode"
+    [(opened)]="drawerLeftOpened"
+  >
+    <div
+      class="mat-body-1"
+      [ngStyle]="{ padding: '8px', textAlign: 'center' }"
+    ></div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar>
+      <div *ngIf="drawerLeftMode === 'over'">
+        <button mat-icon-button (click)="toggleDrawerLeft()">
+          <mat-icon [style.cursor]="'pointer'">menu</mat-icon>
+        </button>
+      </div>
+      <div [style.flex]="'1 1 auto'"></div>
+    </mat-toolbar>
+
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

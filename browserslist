@@ -1,0 +1,7 @@
+# npx browserslist
+
+> 0.5%
+Firefox ESR
+last 3 versions
+not dead
+not IE 9-11 # For IE 9-11 support, remove 'not'.

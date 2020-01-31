@@ -1,0 +1,14 @@
+#drawerLeft {
+  border: 0;
+  width: 256px;
+}
+
+mat-toolbar {
+  background-color: #fafafa;
+}
+
+@media (max-width: 512px) {
+  #drawerLeft {
+    width: 75vw;
+  }
+}

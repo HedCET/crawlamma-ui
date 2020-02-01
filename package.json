@@ -10,7 +10,9 @@
     "@angular/material": "^8.2.3",
     "@angular/platform-browser": "^8.2.14",
     "@angular/platform-browser-dynamic": "^8.2.14",
+    "@angular/pwa": "^0.803.24",
     "@angular/router": "^8.2.14",
+    "@angular/service-worker": "^8.2.14",
     "hammerjs": "^2.0.8",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
@@ -40,7 +42,7 @@
   "name": "twitter-bot",
   "private": true,
   "scripts": {
-    "build": "ng build",
+    "build": "ng build --prod",
     "e2e": "ng e2e",
     "lint": "ng lint",
     "ng": "ng",

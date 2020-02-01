@@ -1,0 +1,16 @@
+{
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "icons": [
+    {
+      "sizes": "512x512",
+      "src": "assets/icons/512.png",
+      "type": "image/png"
+    }
+  ],
+  "name": "Twitter Bot",
+  "scope": "/",
+  "short_name": "Twitter Bot",
+  "start_url": "/",
+  "theme_color": "#ffffff"
+}

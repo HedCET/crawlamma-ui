@@ -30,12 +30,14 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "vendorChunk": false
+              "vendorChunk": false,
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             }
           },
           "options": {
             "aot": false,
-            "assets": ["src/assets", "src/favicon.ico"],
+            "assets": ["src/assets", "src/favicon.ico", "src/manifest.webmanifest"],
             "index": "src/index.html",
             "main": "src/main.ts",
             "outputPath": "dist/twitter-bot",
@@ -88,7 +90,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "assets": ["src/assets", "src/favicon.ico"],
+            "assets": ["src/assets", "src/favicon.ico", "src/manifest.webmanifest"],
             "karmaConfig": "karma.conf.js",
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",

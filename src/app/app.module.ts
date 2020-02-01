@@ -11,6 +11,8 @@ import { AppRoutingModule } from "./app.routing.module";
 import { DashboardComponent } from "./dashboard.component";
 import { DashboardService } from "./dashboard.service";
 import { MaterialComponents } from "../material.components";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -23,7 +25,8 @@ import { MaterialComponents } from "../material.components";
     FormsModule,
     HttpClientModule,
     MaterialComponents,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [DashboardService]
 })

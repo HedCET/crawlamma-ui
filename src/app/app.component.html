@@ -15,11 +15,40 @@
 
   <div
     fxLayout="row"
-    fxLayoutAlign="center start"
+    fxLayoutAlign="center end"
     style="bottom: 0; height: 80px; position: fixed; width: 100vw; z-index: 1;"
   >
     <div style="background-color: white; height: 80px;" [style.width]="width">
-      <div class="mat-body">&nbsp;</div>
+      <mat-tab-group
+        disableRipple
+        headerPosition="below"
+        mat-align-tabs="center"
+      >
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div fxLayout="column" fxLayoutAlign="space-evenly center">
+              <mat-icon>dashboard</mat-icon>
+              <b class="mat-caption">DASHBOARD</b>
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div fxLayout="column" fxLayoutAlign="space-evenly center">
+              <img src="assets/search.png" style="height: 24px; width: 24px;" />
+              <b class="mat-caption">SEARCH</b>
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div fxLayout="column" fxLayoutAlign="space-evenly center">
+              <mat-icon>settings</mat-icon>
+              <b class="mat-caption">SETTINGS</b>
+            </div>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
     </div>
   </div>
 </div>

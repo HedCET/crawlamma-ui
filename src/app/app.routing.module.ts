@@ -2,24 +2,18 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-import { AuthGuard } from "./auth.guard";
-import { TestComponent } from "./test.component";
-
-// export const children: Routes = [ // declare inside module
-//   { component: TestRouterComponent, path: ':handle' }, // this.router.navigate(['./', handle], { relativeTo: this.activatedRoute })
-// ]
+import { DashboardComponent } from "./dashboard.component";
 
 const routes: Routes = [
-  { path: "", pathMatch: "full", redirectTo: "home" },
+  { path: "", pathMatch: "full", redirectTo: "dashboard" },
   {
-    /*canActivate: [AuthGuard],*/ /*children,*/ component: TestComponent,
-    path: "home"
+    component: DashboardComponent,
+    path: "dashboard"
   }
 ];
 
 @NgModule({
   exports: [RouterModule],
   imports: [RouterModule.forRoot(routes)]
-  // providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }]
 })
 export class AppRoutingModule {}

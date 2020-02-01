@@ -8,15 +8,13 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app.routing.module";
-import { AuthGuard } from "./auth.guard";
-import { AuthService } from "./auth.service";
-import { TestComponent } from "./test.component";
-import { TestService } from "./test.service";
+import { DashboardComponent } from "./dashboard.component";
+import { DashboardService } from "./dashboard.service";
 import { MaterialComponents } from "../material.components";
 
 @NgModule({
   bootstrap: [AppComponent],
-  declarations: [AppComponent, TestComponent],
+  declarations: [AppComponent, DashboardComponent],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -27,11 +25,6 @@ import { MaterialComponents } from "../material.components";
     MaterialComponents,
     ReactiveFormsModule
   ],
-  providers: [
-    AuthGuard,
-    AuthService,
-    TestService
-    // { provide: APP_BASE_HREF, useValue: '/' }
-  ]
+  providers: [DashboardService]
 })
 export class AppModule {}

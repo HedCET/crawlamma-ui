@@ -1,7 +1,3 @@
-::ng-deep .mat-ink-bar {
-  background-color: #212121 !important;
-}
-
 ::ng-deep .mat-tab-label {
   height: 80px !important;
 }

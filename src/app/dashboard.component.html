@@ -1,1 +1,51 @@
-<div fxLayout="column" fxLayoutAlign="start center"></div>
+<div fxLayout="column">
+  <div fxLayout="column" style="height: 256px;">
+    <div fxLayout="row" fxLayoutAlign="end center" style="padding: 32px;">
+      <button mat-icon-button>
+        <mat-icon style="cursor: pointer;">help_outline</mat-icon>
+      </button>
+    </div>
+    <div style="flex: 1 1 auto;"></div>
+    <div
+      class="mat-small"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      style="padding: 0 32px;"
+    >
+      TRENDING TWEETERS IN&nbsp;
+      <mat-form-field style="margin-top: 6px; width: 120px;">
+        <mat-label>MALAYALAM STREAM</mat-label>
+        <mat-select value="LIKING">
+          <mat-option style="text-align: right;" value="FOLLOWING">
+            FOLLOWING
+          </mat-option>
+          <mat-option style="text-align: right;" value="FRIENDING">
+            FRIENDING
+          </mat-option>
+          <mat-option style="text-align: right;" value="LIKING">
+            LIKING
+          </mat-option>
+          <mat-option style="text-align: right;" value="QUITTING">
+            QUITTING
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div
+      class="mat-display-3"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      style="font-weight: bold; margin-bottom: 0; margin-top: -24px; padding: 16px 32px;"
+    >
+      768
+    </div>
+  </div>
+  <div
+    class="mat-small"
+    fxLayout="row"
+    fxLayoutAlign="start end"
+    style="background-color: #fafafa; height: 48px; padding: 8px 32px;"
+  >
+    FROM LAST 10 MINUTES TWEETS
+  </div>
+</div>

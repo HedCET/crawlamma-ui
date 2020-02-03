@@ -3,17 +3,10 @@ import {
   MatButtonModule,
   MatIconModule,
   MatSelectModule,
-  MatTableModule,
   MatTabsModule
 } from "@angular/material";
 
 @NgModule({
-  exports: [
-    MatButtonModule,
-    MatIconModule,
-    MatSelectModule,
-    MatTableModule,
-    MatTabsModule
-  ]
+  exports: [MatButtonModule, MatIconModule, MatSelectModule, MatTabsModule]
 })
 export class MaterialComponents {}

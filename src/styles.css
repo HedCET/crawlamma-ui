@@ -1,9 +1,5 @@
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-/*
- * general
- */
-
 * {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   cursor: default;
@@ -30,4 +26,8 @@ body {
   padding: 0;
   text-rendering: optimizeLegibility;
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+}
+
+#word-art-context-menu {
+  display: none !important;
 }

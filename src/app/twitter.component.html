@@ -1,0 +1,54 @@
+<div style="height: 100vh;">
+  <div
+    fxLayout="column"
+    fxLayoutAlign="start center"
+    style="margin-bottom: 80px; height: calc(100vh - 80px);"
+    [style.marginTop]="marginTop"
+  >
+    <div
+      style="background-color: white; height: calc(100vh - 80px);"
+      [style.width]="width"
+    >
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <div
+    fxLayout="row"
+    fxLayoutAlign="center end"
+    style="bottom: 0; height: 80px; position: fixed; width: 100vw; z-index: 1;"
+  >
+    <div style="background-color: white; height: 80px;" [style.width]="width">
+      <mat-tab-group
+        disableRipple
+        headerPosition="below"
+        mat-align-tabs="center"
+      >
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon>dashboard</mat-icon>
+              <div class="mat-small">DASHBOARD</div>
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <img src="assets/search.png" style="height: 24px; width: 24px;" />
+              <div class="mat-small">SEARCH</div>
+            </div>
+          </ng-template>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon>settings</mat-icon>
+              <div class="mat-small">SETTINGS</div>
+            </div>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

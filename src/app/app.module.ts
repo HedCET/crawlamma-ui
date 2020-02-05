@@ -9,14 +9,21 @@ import { ServiceWorkerModule } from "@angular/service-worker";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app.routing.module";
-import { DashboardComponent } from "./dashboard.component";
-import { DashboardService } from "./dashboard.service";
+import { TwitterDashboardComponent } from "./twitter.dashboard.component";
+import { TwitterDashboardService } from "./twitter.dashboard.service";
+import { TwitterComponent } from "./twitter.component";
+import { WordartComponent } from "./wordart.component";
 import { environment } from "../environments/environment";
 import { MaterialComponents } from "../material.components";
 
 @NgModule({
   bootstrap: [AppComponent],
-  declarations: [AppComponent, DashboardComponent],
+  declarations: [
+    AppComponent,
+    TwitterComponent,
+    TwitterDashboardComponent,
+    WordartComponent
+  ],
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -30,6 +37,6 @@ import { MaterialComponents } from "../material.components";
       enabled: environment.production
     })
   ],
-  providers: [DashboardService]
+  providers: [TwitterDashboardService]
 })
 export class AppModule {}

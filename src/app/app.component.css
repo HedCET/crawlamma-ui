@@ -1,7 +1,0 @@
-::ng-deep .mat-tab-label {
-  height: 80px !important;
-}
-
-::ng-deep .mat-tab-label * {
-  cursor: pointer;
-}

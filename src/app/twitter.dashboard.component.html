@@ -1,8 +1,8 @@
 <div fxLayout="column">
   <div fxLayout="column" style="background-color: white; height: 256px;">
     <div fxLayout="row" fxLayoutAlign="end center" style="padding: 32px;">
-      <button mat-icon-button>
-        <mat-icon style="cursor: pointer;">help_outline</mat-icon>
+      <button mat-icon-button (click)="open_in_browser()">
+        <mat-icon style="cursor: pointer;">open_in_browser</mat-icon>
       </button>
     </div>
     <div style="flex: 1 1 auto;"></div>
@@ -52,5 +52,18 @@
     fxLayout="column"
     fxLayoutAlign="center center"
     style="background-color: white;"
-  ></div>
+  >
+    <div
+      class="tagul-word-cloud"
+      data-tagul-src="assets/wordart.json"
+      style="padding: 64px 32px;"
+      [style.height]="width"
+      [style.width]="width"
+    >
+      <canvas
+        class="tagul-canvas"
+        style="cursor: pointer; height: 100%; width: 100%;"
+      ></canvas>
+    </div>
+  </div>
 </div>

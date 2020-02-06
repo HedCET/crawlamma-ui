@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ServiceWorkerModule } from "@angular/service-worker";
+import { DeviceDetectorModule } from "ngx-device-detector";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app.routing.module";
@@ -28,6 +29,7 @@ import { MaterialComponents } from "../material.components";
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
+    DeviceDetectorModule.forRoot(),
     FlexLayoutModule,
     FormsModule,
     HttpClientModule,

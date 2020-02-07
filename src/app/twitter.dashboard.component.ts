@@ -1,7 +1,10 @@
 import { BreakpointObserver } from "@angular/cdk/layout";
+// import { PlatformLocation } from "@angular/common";
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { DeviceDetectorService } from "ngx-device-detector";
+
+import { reloadScriptElement } from "../functions";
 
 @Component({
   selector: "dashboard-component",
@@ -14,6 +17,7 @@ export class TwitterDashboardComponent {
   constructor(
     private readonly breakpointObserver: BreakpointObserver,
     private readonly deviceDetectorService: DeviceDetectorService,
+    // private readonly platformLocation: PlatformLocation,
     private readonly router: Router
   ) {
     this.breakpointObserver.observe(["(min-width: 480px)"]).subscribe(res => {
@@ -23,13 +27,16 @@ export class TwitterDashboardComponent {
     window[
       "DISPLAY_CLOUD_REDEFINE_URL_PATTERN"
     ] = this.deviceDetectorService.isDesktop() ? "//twitter.com/" : undefined;
+    reloadScriptElement("//wordart.com/static/cdn/wordart.min.js");
   }
 
-  open_in_browser() {
-    // this.router.navigate(["/wordart"], {
-    //   queryParams: { id: "liking" }
-    // });
+  open_in_new() {
+    this.router.navigate(["/wordart"], {
+      queryParams: { id: "liking" }
+    });
 
-    window.open("//linto-1.web.app/wordart?id=liking");
+    // window.open(
+    //   `${(this.platformLocation as any).location.origin}/wordart?id=liking`
+    // );
   }
 }

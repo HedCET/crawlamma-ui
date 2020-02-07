@@ -8,3 +8,12 @@ export const getRenderedWidth = (html = "") => {
   document.body.removeChild(div);
   return width;
 };
+
+export const reloadScriptElement = url => {
+  const existingScriptElement = document.querySelector(`script[src="${url}"]`);
+  if (existingScriptElement) existingScriptElement.remove();
+  const scriptElement = document.createElement("script");
+  document.body.appendChild(scriptElement);
+  scriptElement.src = url;
+  return scriptElement;
+};

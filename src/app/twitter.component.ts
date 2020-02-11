@@ -7,13 +7,14 @@ import { Component } from "@angular/core";
   templateUrl: "./twitter.component.html"
 })
 export class TwitterComponent {
-  marginTop: string = "128px";
+  tweeters: string[] = []; // ["1", "2", "3", "4", "5"];
   width: string = "480px";
 
   constructor(private readonly breakpointObserver: BreakpointObserver) {
-    breakpointObserver.observe(["(min-width: 480px)"]).subscribe(res => {
-      this.marginTop = res.matches ? "128px" : "0";
-      this.width = res.matches ? "480px" : "100%";
-    });
+    this.breakpointObserver
+      .observe(["(min-width: 480px)"])
+      .subscribe(breakpoint => {
+        this.width = breakpoint.matches ? "480px" : "100%";
+      });
   }
 }

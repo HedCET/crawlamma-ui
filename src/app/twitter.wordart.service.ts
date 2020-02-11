@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 @Injectable({
   providedIn: "root"
 })
-export class TwitterDashboardService {
+export class TwitterWordartService {
   constructor(private readonly httpClient: HttpClient) {}
 
   getUser() {

@@ -10,10 +10,10 @@ import { DeviceDetectorModule } from "ngx-device-detector";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app.routing.module";
-import { TwitterDashboardComponent } from "./twitter.dashboard.component";
-import { TwitterDashboardService } from "./twitter.dashboard.service";
+import { MatInputAutoFocusDirective } from "./matInputAutoFocus.drective";
 import { TwitterComponent } from "./twitter.component";
-import { WordartComponent } from "./wordart.component";
+import { TwitterWordartComponent } from "./twitter.wordart.component";
+import { TwitterWordartService } from "./twitter.wordart.service";
 import { environment } from "../environments/environment";
 import { MaterialComponents } from "../material.components";
 
@@ -21,9 +21,9 @@ import { MaterialComponents } from "../material.components";
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
+    MatInputAutoFocusDirective,
     TwitterComponent,
-    TwitterDashboardComponent,
-    WordartComponent
+    TwitterWordartComponent
   ],
   imports: [
     AppRoutingModule,
@@ -39,6 +39,6 @@ import { MaterialComponents } from "../material.components";
       enabled: environment.production
     })
   ],
-  providers: [TwitterDashboardService]
+  providers: [TwitterWordartService]
 })
 export class AppModule {}

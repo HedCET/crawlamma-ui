@@ -9,11 +9,11 @@ export const getRenderedWidth = (html = "") => {
   return width;
 };
 
-export const reloadScriptElement = url => {
-  const existingScriptElement = document.querySelector(`script[src="${url}"]`);
-  if (existingScriptElement) existingScriptElement.remove();
-  const scriptElement = document.createElement("script");
-  document.body.appendChild(scriptElement);
-  scriptElement.src = url;
-  return scriptElement;
+export const reloadScriptTag = url => {
+  const existingScriptTag = document.querySelector(`script[src="${url}"]`);
+  if (existingScriptTag) existingScriptTag.remove();
+  const scriptTag = document.createElement("script");
+  document.body.appendChild(scriptTag);
+  scriptTag.src = url;
+  return scriptTag;
 };

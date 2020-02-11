@@ -1,54 +1,70 @@
-<div style="height: 100vh;">
+<div>
   <div
     fxLayout="column"
     fxLayoutAlign="start center"
-    style="margin-bottom: 80px;"
-    [style.marginTop]="marginTop"
+    id="drawer"
+    style="border-radius: 8px; margin: 8px; position: absolute; width: 392px;"
   >
     <div
-      style="background-color: white; min-height: calc(100vh - 80px);"
-      [style.width]="width"
+      class="mat-h3"
+      fxLayout="row"
+      fxLayoutAlign="start end"
+      style="margin: 0; padding: 12px 24px 24px 12px; width: 100%;"
     >
-      <router-outlet></router-outlet>
+      <button mat-icon-button style="margin-right: 12px;">
+        <mat-icon style="cursor: pointer;">menu_open</mat-icon>
+      </button>
+
+      <mat-form-field style="width: 100%;">
+        <mat-label class="mat-body">MALAYALAM TWEETERS SEARCH</mat-label>
+        <input
+          matInput
+          matInputAutoFocus
+          placeholder="example - linto_cheeran"
+          style="text-overflow: ellipsis;"
+          type="text"
+          [(ngModel)]="value"
+        />
+        <button
+          *ngIf="value"
+          (click)="value = ''"
+          mat-button
+          mat-icon-button
+          matSuffix
+          style="margin-left: 4px;"
+        >
+          <mat-icon style="cursor: pointer;">close</mat-icon>
+        </button>
+        <mat-hint
+          class="mat-small"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+        >
+          <img src="assets/loading.svg" style="height: 20px;" />
+          <!-- <div>LAST TWEETED 10/1000</div> -->
+        </mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div
+      *ngFor="let tweeter of tweeters"
+      class="mat-h3"
+      fxLayout="row"
+      fxLayoutAlign="start end"
+      style="margin: -24px 0 0 0; padding: 0 24px 0 64px; width: 100%;"
+    >
+      <mat-form-field style="width: 100%;">
+        <input
+          disabled
+          matInput
+          style="cursor: pointer; text-overflow: ellipsis;"
+          type="text"
+          value="{{ tweeter }}"
+        />
+      </mat-form-field>
     </div>
   </div>
 
-  <div
-    fxLayout="row"
-    fxLayoutAlign="center end"
-    style="bottom: 0; height: 80px; position: fixed; width: 100vw; z-index: 1;"
-  >
-    <div style="background-color: white; height: 80px;" [style.width]="width">
-      <mat-tab-group
-        disableRipple
-        headerPosition="below"
-        mat-align-tabs="center"
-      >
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <div fxLayout="column" fxLayoutAlign="center center">
-              <mat-icon>dashboard</mat-icon>
-              <div class="mat-small">DASHBOARD</div>
-            </div>
-          </ng-template>
-        </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <div fxLayout="column" fxLayoutAlign="center center">
-              <img src="assets/search.png" style="height: 24px; width: 24px;" />
-              <div class="mat-small">SEARCH</div>
-            </div>
-          </ng-template>
-        </mat-tab>
-        <mat-tab>
-          <ng-template mat-tab-label>
-            <div fxLayout="column" fxLayoutAlign="center center">
-              <mat-icon>settings</mat-icon>
-              <div class="mat-small">SETTINGS</div>
-            </div>
-          </ng-template>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-  </div>
+  <router-outlet></router-outlet>
 </div>

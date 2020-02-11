@@ -7,7 +7,8 @@ import { Component } from "@angular/core";
   templateUrl: "./twitter.component.html"
 })
 export class TwitterComponent {
-  tweeters: string[] = []; // ["1", "2", "3", "4", "5"];
+  tweeters: string[] = ["jisna", "linto_cheeran"];
+  value: string = "";
   width: string = "480px";
 
   constructor(private readonly breakpointObserver: BreakpointObserver) {

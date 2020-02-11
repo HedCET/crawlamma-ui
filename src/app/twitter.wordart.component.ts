@@ -9,6 +9,7 @@ import { reloadScriptTag } from "../functions";
   templateUrl: "./twitter.wordart.component.html"
 })
 export class TwitterWordartComponent {
+  selected = "favourites";
   width: string = "416px";
 
   constructor(private readonly deviceDetectorService: DeviceDetectorService) {

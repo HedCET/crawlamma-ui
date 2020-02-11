@@ -1,1 +1,68 @@
-<div></div>
+<div>
+  <div fxLayout="column" fxLayoutAlign="start end">
+    <div
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      style="padding: 12px 24px; width: 100vw;"
+    >
+      <button mat-button mat-icon-button>
+        <mat-icon style="color: #616161; cursor: pointer; margin-left: -6px;">
+          menu
+        </mat-icon>
+      </button>
+
+      <div class="mat-small">
+        TRENDING TWEETERS IN
+        <mat-form-field style="margin-top: 6px; width: 160px;">
+          <mat-label>MALAYALAM STREAM</mat-label>
+
+          <mat-select value="favourites">
+            <mat-option value="followers">FOLLOWING</mat-option>
+            <mat-option value="friends" style="border-top: 2px dotted #e0e0e0;">
+              FRIENDING
+            </mat-option>
+            <mat-option
+              value="favourites"
+              style="border-top: 2px dotted #e0e0e0;"
+            >
+              LIKING
+            </mat-option>
+            <mat-option
+              value="tweeted_at"
+              style="border-top: 2px dotted #e0e0e0;"
+            >
+              QUITTING
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      style="height: 100vh; width: 100vw;"
+    >
+      &nbsp;
+    </div>
+
+    <div
+      fxLayout="column"
+      fxLayoutAlign="center end"
+      style="padding: 12px 24px; width: 100vw;"
+    >
+      <div
+        class="mat-small"
+        style="color:#616161; font-size: x-small; line-height: 16px;"
+      >
+        123 TWEETERS
+      </div>
+      <div
+        class="mat-small"
+        style="color:#616161; font-size: x-small; line-height: 16px;"
+      >
+        2020-10-10 10:10 AM
+      </div>
+    </div>
+  </div>
+</div>

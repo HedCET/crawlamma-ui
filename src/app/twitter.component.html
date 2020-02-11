@@ -1,68 +1,80 @@
 <div>
-  <div
-    fxLayout="column"
-    fxLayoutAlign="start center"
-    id="drawer"
-    style="border-radius: 8px; margin: 8px; position: absolute; width: 392px;"
-  >
+  <div style="position: absolute; z-index: 1;">
     <div
-      class="mat-h3"
-      fxLayout="row"
-      fxLayoutAlign="start end"
-      style="margin: 0; padding: 12px 24px 24px 12px; width: 100%;"
+      fxLayout="column"
+      fxLayoutAlign="start center"
+      style="background-color: #ffffff; border-radius: 8px; margin: 8px; width: 384px;"
     >
-      <button mat-icon-button style="margin-right: 12px;">
-        <mat-icon style="cursor: pointer;">menu_open</mat-icon>
-      </button>
-
-      <mat-form-field style="width: 100%;">
-        <mat-label class="mat-body">MALAYALAM TWEETERS SEARCH</mat-label>
-        <input
-          matInput
-          matInputAutoFocus
-          placeholder="example - linto_cheeran"
-          style="text-overflow: ellipsis;"
-          type="text"
-          [(ngModel)]="value"
-        />
-        <button
-          *ngIf="value"
-          (click)="value = ''"
-          mat-button
-          mat-icon-button
-          matSuffix
-          style="margin-left: 4px;"
+      <div
+        fxLayout="row"
+        fxLayoutAlign="start end"
+        style="margin: 0; padding: 12px 24px 24px 12px; width: 100%;"
+      >
+        <div
+          fxLayout="column"
+          fxLayoutAlign="end center"
+          style="margin-right: 12px;"
         >
-          <mat-icon style="cursor: pointer;">close</mat-icon>
-        </button>
-        <mat-hint
-          class="mat-small"
-          fxLayout="row"
-          fxLayoutAlign="start center"
-          style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
-        >
-          <img src="assets/loading.svg" style="height: 20px;" />
-          <!-- <div>LAST TWEETED 10/1000</div> -->
-        </mat-hint>
-      </mat-form-field>
-    </div>
+          <button mat-button mat-icon-button>
+            <mat-icon style="color: #616161; cursor: pointer;">
+              menu_open
+            </mat-icon>
+          </button>
 
-    <div
-      *ngFor="let tweeter of tweeters"
-      class="mat-h3"
-      fxLayout="row"
-      fxLayoutAlign="start end"
-      style="margin: -24px 0 0 0; padding: 0 24px 0 64px; width: 100%;"
-    >
-      <mat-form-field style="width: 100%;">
-        <input
-          disabled
-          matInput
-          style="cursor: pointer; text-overflow: ellipsis;"
-          type="text"
-          value="{{ tweeter }}"
-        />
-      </mat-form-field>
+          <button mat-button mat-icon-button>
+            <mat-icon style="color: #616161; cursor: pointer;"
+              >settings</mat-icon
+            >
+          </button>
+        </div>
+
+        <mat-form-field style="width: 100%;">
+          <mat-label class="mat-body">MALAYALAM TWEETERS SEARCH</mat-label>
+          <input
+            matInput
+            matInputAutoFocus
+            placeholder="example - linto_cheeran"
+            style="text-overflow: ellipsis;"
+            type="text"
+            [(ngModel)]="value"
+          />
+          <button
+            *ngIf="value"
+            (click)="value = ''"
+            mat-button
+            mat-icon-button
+            matSuffix
+            style="margin-left: 4px;"
+          >
+            <mat-icon style="cursor: pointer;">close</mat-icon>
+          </button>
+          <mat-hint
+            class="mat-small"
+            fxLayout="row"
+            fxLayoutAlign="start center"
+          >
+            <!-- <img src="assets/loading.svg" style="height: 20px;" /> -->
+            <div style="font-size: x-small;">LAST UPDATED 10/1000 TWEETERS</div>
+          </mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div
+        *ngFor="let tweeter of tweeters"
+        fxLayout="row"
+        fxLayoutAlign="start end"
+        style="margin: -24px 0 0 0; padding: 0 24px 0 64px; width: 100%;"
+      >
+        <mat-form-field style="width: 100%;">
+          <input
+            disabled
+            matInput
+            style="cursor: pointer; text-overflow: ellipsis;"
+            type="text"
+            value="{{ tweeter }}"
+          />
+        </mat-form-field>
+      </div>
     </div>
   </div>
 

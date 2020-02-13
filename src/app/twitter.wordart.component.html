@@ -5,8 +5,13 @@
       fxLayoutAlign="space-between start"
       style="padding: 12px 24px; width: 100vw;"
     >
-      <button mat-button mat-icon-button style="margin: 8px 12px 0 -4px;">
-        <mat-icon style="color: #616161; cursor: pointer;">
+      <button
+        (click)="open()"
+        mat-button
+        mat-icon-button
+        style="margin: 8px 12px 0 -4px;"
+      >
+        <mat-icon style="color: #212121; cursor: pointer;">
           menu
         </mat-icon>
       </button>
@@ -51,16 +56,10 @@
       fxLayoutAlign="center end"
       style="padding: 24px; width: 100vw;"
     >
-      <div
-        class="mat-small"
-        style="color:#616161; font-size: x-small; line-height: 16px;"
-      >
+      <div class="mat-small" style="font-size: x-small; line-height: 16px;">
         123 TWEETERS
       </div>
-      <div
-        class="mat-small"
-        style="color:#616161; font-size: x-small; line-height: 16px;"
-      >
+      <div class="mat-small" style="font-size: x-small; line-height: 16px;">
         2020-10-10 10:10 AM
       </div>
     </div>

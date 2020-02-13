@@ -1,11 +1,7 @@
 import { Component, Inject } from "@angular/core";
 // import { DeviceDetectorService } from "ngx-device-detector";
-import { Store } from "redux";
 
-import * as AppActions from "./app.actions";
-import { AppState } from "./app.state";
-import { AppStore } from "./app.store";
-import { reloadScriptTag } from "../functions";
+// import { reloadScriptTag } from "../functions";
 
 @Component({
   selector: "wordart-component",
@@ -15,14 +11,12 @@ import { reloadScriptTag } from "../functions";
 export class TwitterWordartComponent {
   selected = "favourites";
 
-  constructor(
-    // private readonly deviceDetectorService: DeviceDetectorService,
-    @Inject(AppStore) private readonly store: Store<AppState>
-  ) {
+  constructor() // private readonly deviceDetectorService: DeviceDetectorService,
+  {
     // this.deviceDetectorService.isDesktop();
   }
 
-  open() {
-    this.store.dispatch(AppActions.sideMenuOpenAction());
+  sideMenuToggle() {
+    console.log("sideMenuToggle();");
   }
 }

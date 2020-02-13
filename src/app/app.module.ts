@@ -10,7 +10,6 @@ import { DeviceDetectorModule } from "ngx-device-detector";
 
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app.routing.module";
-import { appStoreProviders } from "./app.store";
 import { HttpService } from "./http.service";
 import { MatInputAutoFocusDirective } from "./matInputAutoFocus.drective";
 import { TwitterComponent } from "./twitter.component";
@@ -40,6 +39,6 @@ import { MaterialComponents } from "../material.components";
       enabled: environment.production
     })
   ],
-  providers: [appStoreProviders, HttpService]
+  providers: [HttpService]
 })
 export class AppModule {}

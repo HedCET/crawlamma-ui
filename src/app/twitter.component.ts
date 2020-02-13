@@ -3,14 +3,10 @@ import { BreakpointObserver } from "@angular/cdk/layout";
 import { Component, Inject, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { Store } from "redux";
 import { debounceTime, map, switchAll, tap } from "rxjs/operators";
 import { Subscription } from "rxjs";
 import * as url from "url";
 
-import * as AppActions from "./app.actions";
-import { AppState } from "./app.state";
-import { AppStore } from "./app.store";
 import { HttpService } from "./http.service";
 import { searchResponseInterface } from "./search.inerface";
 import { environment } from "../environments/environment";
@@ -45,14 +41,10 @@ export class TwitterComponent implements OnInit {
     private readonly breakpointObserver: BreakpointObserver,
     private readonly formBuilder: FormBuilder,
     private readonly httpService: HttpService,
-    private readonly router: Router,
-    @Inject(AppStore) private readonly store: Store<AppState>
+    private readonly router: Router
   ) {
     this.searchForm = this.formBuilder.group({ searchInput: [""] });
     this.searchInput = this.searchForm.controls["searchInput"];
-
-    this.store.subscribe(() => this.readState());
-    this.readState();
   }
 
   ngOnInit() {
@@ -109,10 +101,5 @@ export class TwitterComponent implements OnInit {
 
   openInBrowser(twitterId) {
     window.open(url.resolve(environment.twitter_url, twitterId));
-  }
-
-  readState() {
-    const state: AppState = this.store.getState() as AppState;
-    this.sideMenu = state.sideMenu;
   }
 }

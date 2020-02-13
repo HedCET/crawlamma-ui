@@ -1,6 +1,8 @@
-import { Component, Inject } from "@angular/core";
-// import { DeviceDetectorService } from "ngx-device-detector";
+import { Component } from "@angular/core";
+import { Store } from "@ngrx/store";
 
+import * as AppActions from "./app.actions";
+import { AppState } from "./app.state";
 // import { reloadScriptTag } from "../functions";
 
 @Component({
@@ -11,12 +13,9 @@ import { Component, Inject } from "@angular/core";
 export class TwitterWordartComponent {
   selected = "favourites";
 
-  constructor() // private readonly deviceDetectorService: DeviceDetectorService,
-  {
-    // this.deviceDetectorService.isDesktop();
-  }
+  constructor(private readonly store: Store<{ app: AppState }>) {}
 
   sideMenuToggle() {
-    console.log("sideMenuToggle();");
+    this.store.dispatch(AppActions.sideMenuToggle());
   }
 }

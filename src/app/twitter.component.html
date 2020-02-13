@@ -1,6 +1,6 @@
 <div>
   <div
-    *ngIf="sideMenu"
+    *ngIf="sideMenu | async"
     [@sideMenuAnimation]
     style="background-color: #ffffff; position: absolute; z-index: 1;"
   >

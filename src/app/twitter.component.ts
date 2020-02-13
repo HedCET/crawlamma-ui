@@ -1,12 +1,15 @@
 import { trigger, style, animate, transition } from "@angular/animations";
 import { BreakpointObserver } from "@angular/cdk/layout";
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { debounceTime, map, switchAll, tap } from "rxjs/operators";
-import { Subscription } from "rxjs";
+import { Store } from "@ngrx/store";
+import { debounceTime, map, switchAll, take, tap } from "rxjs/operators";
+import { Observable, Subscription, of } from "rxjs";
 import * as url from "url";
 
+import * as AppActions from "./app.actions";
+import { AppState } from "./app.state";
 import { HttpService } from "./http.service";
 import { searchResponseInterface } from "./search.inerface";
 import { environment } from "../environments/environment";
@@ -34,14 +37,15 @@ export class TwitterComponent implements OnInit {
   searchInput: AbstractControl;
   searchResponse: searchResponseInterface = { hits: [], total: 0 };
   searching = false;
-  sideMenu = true;
+  sideMenu: Observable<boolean>;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly breakpointObserver: BreakpointObserver,
     private readonly formBuilder: FormBuilder,
     private readonly httpService: HttpService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly store: Store<{ app: AppState }>
   ) {
     this.searchForm = this.formBuilder.group({ searchInput: [""] });
     this.searchInput = this.searchForm.controls["searchInput"];
@@ -68,19 +72,21 @@ export class TwitterComponent implements OnInit {
         })
     );
 
-    // this.subscription.add(
-    //   this.breakpointObserver
-    //     .observe(["(min-width: 768px)"])
-    //     .subscribe(breakpoint => {
-    //       console.log("breakpoint", breakpoint);
-    //     })
-    // );
-
     this.subscription.add(
       this.searchInput.valueChanges.pipe(debounceTime(400)).subscribe(value => {
         this.updateQueryParams({ key: value });
       })
     );
+
+    this.breakpointObserver
+      .observe(["(min-width: 768px)"])
+      .pipe(take(1))
+      .subscribe(breakpoint => {
+        if (breakpoint.matches)
+          this.store.dispatch(AppActions.sideMenuToggle());
+      });
+
+    this.sideMenu = this.store.select(state => state.app.sideMenu);
   }
 
   ngOnDestroy() {
@@ -96,7 +102,7 @@ export class TwitterComponent implements OnInit {
   }
 
   sideMenuToggle() {
-    this.sideMenu = !this.sideMenu;
+    this.store.dispatch(AppActions.sideMenuToggle());
   }
 
   openInBrowser(twitterId) {

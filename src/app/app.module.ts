@@ -6,9 +6,10 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ServiceWorkerModule } from "@angular/service-worker";
-import { DeviceDetectorModule } from "ngx-device-detector";
+import { StoreModule } from "@ngrx/store";
 
 import { AppComponent } from "./app.component";
+import { reducer } from "./app.reducers";
 import { AppRoutingModule } from "./app.routing.module";
 import { HttpService } from "./http.service";
 import { MatInputAutoFocusDirective } from "./matInputAutoFocus.drective";
@@ -29,7 +30,6 @@ import { MaterialComponents } from "../material.components";
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    DeviceDetectorModule.forRoot(),
     FlexLayoutModule,
     FormsModule,
     HttpClientModule,
@@ -37,7 +37,8 @@ import { MaterialComponents } from "../material.components";
     ReactiveFormsModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production
-    })
+    }),
+    StoreModule.forRoot({ app: reducer })
   ],
   providers: [HttpService]
 })

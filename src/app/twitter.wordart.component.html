@@ -55,6 +55,7 @@
     >
       <div
         [attr.data-tagul-src]="getSrc(selected.value)"
+        (window:resize)="resizeEvent($event)"
         class="tagul-word-cloud"
         style="height: 100%; width: 100%;"
       >

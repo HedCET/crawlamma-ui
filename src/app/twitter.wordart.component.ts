@@ -136,4 +136,8 @@ export class TwitterWordartComponent implements OnInit {
         })
       );
   }
+
+  resizeEvent(event: Event) {
+    this.addClickEventListener();
+  }
 }

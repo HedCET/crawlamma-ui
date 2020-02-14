@@ -115,7 +115,7 @@ export class TwitterWordartComponent implements OnInit {
     const document = this.elementRef.nativeElement;
     const elementRef = document.querySelector("a.wordart-anchor");
 
-    if (elementRef)
+    if (elementRef && elementRef.href)
       this.store.dispatch(
         AppActions.toast({
           toast: JSON.stringify({

@@ -6,8 +6,9 @@ import { TwitterComponent } from "./twitter.component";
 import { TwitterWordartComponent } from "./twitter.wordart.component";
 
 const twitterRoutes: Routes = [
-  { path: "", pathMatch: "full", redirectTo: "wordart" },
-  { component: TwitterWordartComponent, path: "wordart" }
+  { path: "", pathMatch: "full", redirectTo: "wordart/favourites" },
+  { path: "wordart", pathMatch: "full", redirectTo: "wordart/favourites" },
+  { component: TwitterWordartComponent, path: "wordart/:selected" }
 ];
 
 const routes: Routes = [

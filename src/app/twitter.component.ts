@@ -2,11 +2,13 @@ import { trigger, style, animate, transition } from "@angular/animations";
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Component, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
+import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 import { debounceTime, map, switchAll, take, tap } from "rxjs/operators";
-import { Observable, Subscription, of } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import * as url from "url";
+import { isJSON } from "validator";
 
 import * as AppActions from "./app.actions";
 import { AppState } from "./app.state";
@@ -44,6 +46,7 @@ export class TwitterComponent implements OnInit {
     private readonly breakpointObserver: BreakpointObserver,
     private readonly formBuilder: FormBuilder,
     private readonly httpService: HttpService,
+    private readonly snackbar: MatSnackBar,
     private readonly router: Router,
     private readonly store: Store<{ app: AppState }>
   ) {
@@ -67,15 +70,53 @@ export class TwitterComponent implements OnInit {
             this.searching = false;
           })
         )
-        .subscribe((searchResponse: searchResponseInterface) => {
-          this.searchResponse = searchResponse;
+        .subscribe(
+          (searchResponse: searchResponseInterface) =>
+            (this.searchResponse = searchResponse)
+        )
+    );
+
+    this.subscription.add(
+      this.searchInput.valueChanges
+        .pipe(debounceTime(400))
+        .subscribe(value => this.updateQueryParams({ key: value }))
+    );
+
+    this.subscription.add(
+      this.store
+        .select(state => state.app.toast)
+        .subscribe(payload => {
+          if (payload && isJSON(payload)) {
+            const toast = JSON.parse(payload);
+
+            this.snackbar.open
+              .apply(this.snackbar, toast.args)
+              .onAction()
+              .pipe(take(1))
+              .subscribe(() => {
+                if (toast.action)
+                  this.store.dispatch(
+                    AppActions.toastAction({ toastAction: toast.action })
+                  );
+              });
+          }
         })
     );
 
     this.subscription.add(
-      this.searchInput.valueChanges.pipe(debounceTime(400)).subscribe(value => {
-        this.updateQueryParams({ key: value });
-      })
+      this.store
+        .select(state => state.app.toastAction)
+        .subscribe(payload => {
+          if (payload && isJSON(payload)) {
+            const toastAction = JSON.parse(payload);
+
+            switch (toastAction.action) {
+              case "open_in_browser":
+                window.open(toastAction.actionData);
+                break;
+            }
+          }
+        })
     );
 
     this.breakpointObserver

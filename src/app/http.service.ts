@@ -15,4 +15,10 @@ export class HttpService {
       url.resolve(environment.server_base_url, `search?key=${key}`)
     );
   }
+
+  wordart(key: string = "") {
+    return this.httpClient.get(
+      url.resolve(environment.server_base_url, `wordart?key=${key}`)
+    );
+  }
 }

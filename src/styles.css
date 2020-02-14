@@ -23,6 +23,10 @@ body {
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
 }
 
+.mat-simple-snackbar-action * {
+  cursor: pointer;
+}
+
 #word-art-context-menu {
   display: none !important;
 }

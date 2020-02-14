@@ -16,30 +16,35 @@
         </mat-icon>
       </button>
 
-      <div class="mat-small">
-        TRENDS IN
-        <mat-form-field style="margin-top: 6px; width: 160px;">
-          <mat-label>MALAYALAM TWEETS</mat-label>
+      <div fxLayout="row wrap" fxLayoutAlign="center center" class="mat-small">
+        TRENDS IN&nbsp;
+        <form [formGroup]="selectForm">
+          <mat-form-field style="margin-top: 6px; width: 160px;">
+            <mat-label>MALAYALAM TWEETS</mat-label>
 
-          <mat-select value="favourites">
-            <mat-option value="followers">FOLLOWING</mat-option>
-            <mat-option value="friends" style="border-top: 2px dotted #e0e0e0;">
-              FRIENDING
-            </mat-option>
-            <mat-option
-              value="favourites"
-              style="border-top: 2px dotted #e0e0e0;"
-            >
-              LIKING
-            </mat-option>
-            <mat-option
-              value="tweeted_at"
-              style="border-top: 2px dotted #e0e0e0;"
-            >
-              QUITTING
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+            <mat-select [(formControl)]="selected">
+              <mat-option
+                *ngFor="
+                  let option of wordartResponse | objectKeys;
+                  let i = index
+                "
+                [ngStyle]="{
+                  borderTop: i ? '2px dotted #e0e0e0' : ''
+                }"
+                value="{{ option }}"
+                >{{
+                  option == "favourites"
+                    ? "LIKING"
+                    : option == "followers"
+                    ? "FOLLOWING"
+                    : option == "friends"
+                    ? "FRIENDING"
+                    : "QUITTING"
+                }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </form>
       </div>
     </div>
 
@@ -48,7 +53,13 @@
       fxLayoutAlign="center center"
       style="height: 100vh; width: 100vw;"
     >
-      &nbsp;
+      <div
+        [attr.data-tagul-src]="getSrc(selected.value)"
+        class="tagul-word-cloud"
+        style="height: 100%; width: 100%;"
+      >
+        <canvas class="tagul-canvas"></canvas>
+      </div>
     </div>
 
     <div
@@ -57,10 +68,10 @@
       style="padding: 24px; width: 100vw;"
     >
       <div class="mat-small" style="font-size: x-small; line-height: 16px;">
-        123 TWEETERS
+        {{ wordartResponse[selected.value]?.hits?.length }} TWEETERS
       </div>
       <div class="mat-small" style="font-size: x-small; line-height: 16px;">
-        2020-10-10 10:10 AM
+        AT {{ getTimeString(wordartResponse[selected.value]?.startAt) }}
       </div>
     </div>
   </div>

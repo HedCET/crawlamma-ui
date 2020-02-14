@@ -12,6 +12,7 @@ import { AppComponent } from "./app.component";
 import { reducer } from "./app.reducers";
 import { AppRoutingModule } from "./app.routing.module";
 import { HttpService } from "./http.service";
+import { ObjectKeys } from "./objectKeys.pipe";
 import { MatInputAutoFocusDirective } from "./matInputAutoFocus.drective";
 import { TwitterComponent } from "./twitter.component";
 import { TwitterWordartComponent } from "./twitter.wordart.component";
@@ -23,6 +24,7 @@ import { MaterialComponents } from "../material.components";
   declarations: [
     AppComponent,
     MatInputAutoFocusDirective,
+    ObjectKeys,
     TwitterComponent,
     TwitterWordartComponent
   ],

@@ -9,6 +9,16 @@ const AppReducer = createReducer(
   on(AppActions.sideMenuToggle, state => ({
     ...state,
     sideMenu: !state.sideMenu
+  })),
+
+  on(AppActions.toast, (state, action) => ({
+    ...state,
+    toast: action.toast || ""
+  })),
+
+  on(AppActions.toastAction, (state, action) => ({
+    ...state,
+    toastAction: action.toastAction || ""
   }))
 );
 

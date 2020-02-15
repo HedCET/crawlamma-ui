@@ -23,7 +23,9 @@ export class TwitterWordartComponent implements OnInit {
 
   selectForm: FormGroup;
   selected: AbstractControl;
+  wordartHeight: number;
   wordartResponse: wordartResponseInterface = {};
+  wordartWidth: number;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -74,6 +76,9 @@ export class TwitterWordartComponent implements OnInit {
     );
 
     window["DISPLAY_CLOUD_REDEFINE_URL_PATTERN"] = "https://twitter.com/";
+
+    this.wordartHeight = window.innerHeight;
+    this.wordartWidth = window.innerWidth;
   }
 
   ngOnDestroy() {
@@ -135,9 +140,5 @@ export class TwitterWordartComponent implements OnInit {
           })
         })
       );
-  }
-
-  resizeEvent(event: Event) {
-    this.addClickEventListener();
   }
 }

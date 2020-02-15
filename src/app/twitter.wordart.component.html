@@ -28,9 +28,7 @@
                   let option of wordartResponse | objectKeys;
                   let i = index
                 "
-                [ngStyle]="{
-                  borderTop: i ? '2px dotted #e0e0e0' : ''
-                }"
+                [ngStyle]="{ borderTop: i ? '2px dotted #e0e0e0' : '' }"
                 value="{{ option }}"
                 >{{
                   option == "favourites"
@@ -55,7 +53,6 @@
     >
       <div
         [attr.data-tagul-src]="getSrc(selected.value)"
-        (window:resize)="resizeEvent($event)"
         class="tagul-word-cloud"
         style="height: 100%; width: 100%;"
       >

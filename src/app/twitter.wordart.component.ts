@@ -49,14 +49,14 @@ export class TwitterWordartComponent implements OnInit {
       .subscribe((wordartResponse: wordartResponseInterface) => {
         this.wordartResponse = wordartResponse;
         reloadScriptTag(environment.wordart_min_js);
-        this.addClickEventListener();
+        this.addEventListener();
       });
 
     this.subscription.add(
       this.selected.valueChanges.subscribe(selectedValue => {
         this.updateSelectedParam(selectedValue);
         reloadScriptTag(environment.wordart_min_js);
-        this.addClickEventListener();
+        this.addEventListener();
       })
     );
 
@@ -102,7 +102,7 @@ export class TwitterWordartComponent implements OnInit {
     return moment(ms).format("YYYY-MM-DD hh:mm:ss A");
   }
 
-  addClickEventListener() {
+  addEventListener() {
     const handle = setInterval(() => {
       const document = this.elementRef.nativeElement;
       const elementRef = document.querySelector("a.wordart-anchor");
@@ -110,6 +110,16 @@ export class TwitterWordartComponent implements OnInit {
       if (elementRef) {
         elementRef.addEventListener("click", this.clickEvent.bind(this));
         clearInterval(handle);
+        document
+          .querySelector("div.tagul-word-cloud")
+          .setAttribute(
+            "style",
+            `height:${
+              document.querySelector("div.tagul-word-cloud")["offsetHeight"]
+            }px;width:${
+              document.querySelector("div.tagul-word-cloud")["offsetWidth"]
+            }px`
+          );
       }
     }, 1000);
   }
@@ -141,4 +151,10 @@ export class TwitterWordartComponent implements OnInit {
         })
       );
   }
+
+  // removeEventListener() {
+  //   console.log(typeof getEventListeners);
+  //   for (const event of window["getEventListeners"](window)["resize"] || [])
+  //     window.removeEventListener("resize", event.listener, event.useCapture);
+  // }
 }

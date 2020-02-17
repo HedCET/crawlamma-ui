@@ -23,9 +23,7 @@ export class TwitterWordartComponent implements OnInit {
 
   selectForm: FormGroup;
   selected: AbstractControl;
-  wordartHeight: number;
   wordartResponse: wordartResponseInterface = {};
-  wordartWidth: number;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -76,9 +74,6 @@ export class TwitterWordartComponent implements OnInit {
     );
 
     window["DISPLAY_CLOUD_REDEFINE_URL_PATTERN"] = "https://twitter.com/";
-
-    this.wordartHeight = window.innerHeight;
-    this.wordartWidth = window.innerWidth;
   }
 
   ngOnDestroy() {
@@ -110,15 +105,16 @@ export class TwitterWordartComponent implements OnInit {
       if (elementRef) {
         elementRef.addEventListener("click", this.clickEvent.bind(this));
         clearInterval(handle);
+
         document
           .querySelector("div.tagul-word-cloud")
           .setAttribute(
             "style",
-            `height:${
+            `height: ${
               document.querySelector("div.tagul-word-cloud")["offsetHeight"]
-            }px;width:${
+            }px; width: ${
               document.querySelector("div.tagul-word-cloud")["offsetWidth"]
-            }px`
+            }px;`
           );
       }
     }, 1000);
@@ -151,10 +147,4 @@ export class TwitterWordartComponent implements OnInit {
         })
       );
   }
-
-  // removeEventListener() {
-  //   console.log(typeof getEventListeners);
-  //   for (const event of window["getEventListeners"](window)["resize"] || [])
-  //     window.removeEventListener("resize", event.listener, event.useCapture);
-  // }
 }

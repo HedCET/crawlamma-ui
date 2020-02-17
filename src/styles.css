@@ -23,6 +23,17 @@ body {
   text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
 }
 
+@media (max-width: 768px) {
+  .mat-snack-bar-container {
+    border-radius: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+simple-snack-bar > span {
+  font-style: italic;
+}
+
 .mat-simple-snackbar-action * {
   cursor: pointer;
 }

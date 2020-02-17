@@ -120,10 +120,10 @@ export class TwitterComponent implements OnInit {
     );
 
     this.breakpointObserver
-      .observe(["(min-width: 768px)"])
+      .observe(["(max-width: 768px)"])
       .pipe(take(1))
       .subscribe(breakpoint => {
-        if (breakpoint.matches)
+        if (!breakpoint.matches)
           this.store.dispatch(AppActions.sideMenuToggle());
       });
 

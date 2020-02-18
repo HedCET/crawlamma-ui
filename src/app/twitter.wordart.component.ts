@@ -135,7 +135,6 @@ export class TwitterWordartComponent implements OnInit {
               "OPEN",
               {
                 duration: 3000,
-                horizontalPosition: "right",
                 panelClass: ["mat-body"]
               }
             ],

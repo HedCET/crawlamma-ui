@@ -149,4 +149,25 @@ export class TwitterComponent implements OnInit {
   openInBrowser(twitterId) {
     window.open(url.resolve(environment.twitter_url, twitterId));
   }
+
+  underConstruction() {
+    this.store.dispatch(
+      AppActions.toast({
+        toast: JSON.stringify({
+          args: [
+            "under construction",
+            "DETAILS",
+            {
+              duration: 3000,
+              panelClass: ["mat-body"]
+            }
+          ],
+          action: JSON.stringify({
+            action: "open_in_browser",
+            actionData: "https://twitter.com/kandamkori"
+          })
+        })
+      })
+    );
+  }
 }

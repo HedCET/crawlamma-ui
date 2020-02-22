@@ -21,6 +21,7 @@ import { reloadScriptTag } from "../functions";
 export class TwitterWordartComponent implements OnInit {
   private subscription = new Subscription();
 
+  loading = true;
   selectForm: FormGroup;
   selected: AbstractControl;
   wordartResponse: wordartResponseInterface = {};
@@ -48,6 +49,7 @@ export class TwitterWordartComponent implements OnInit {
         this.wordartResponse = wordartResponse;
         reloadScriptTag(environment.wordart_min_js);
         this.addEventListener();
+        this.loading = false;
       });
 
     this.subscription.add(

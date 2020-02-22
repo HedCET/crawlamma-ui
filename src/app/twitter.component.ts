@@ -1,5 +1,5 @@
 import { trigger, style, animate, transition } from "@angular/animations";
-import { BreakpointObserver } from "@angular/cdk/layout";
+// import { BreakpointObserver } from "@angular/cdk/layout";
 import { Component, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
@@ -43,7 +43,7 @@ export class TwitterComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly breakpointObserver: BreakpointObserver,
+    // private readonly breakpointObserver: BreakpointObserver,
     private readonly formBuilder: FormBuilder,
     private readonly httpService: HttpService,
     private readonly snackbar: MatSnackBar,
@@ -119,13 +119,13 @@ export class TwitterComponent implements OnInit {
         })
     );
 
-    this.breakpointObserver
-      .observe(["(max-width: 768px)"])
-      .pipe(take(1))
-      .subscribe(breakpoint => {
-        if (!breakpoint.matches)
-          this.store.dispatch(AppActions.sideMenuToggle());
-      });
+    // this.breakpointObserver
+    //   .observe(["(max-width: 768px)"])
+    //   .pipe(take(1))
+    //   .subscribe(breakpoint => {
+    //     if (!breakpoint.matches)
+    //       this.store.dispatch(AppActions.sideMenuToggle());
+    //   });
 
     this.sideMenu = this.store.select(state => state.app.sideMenu);
   }

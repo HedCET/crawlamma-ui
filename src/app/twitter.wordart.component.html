@@ -41,6 +41,13 @@
                 }}</mat-option
               >
             </mat-select>
+
+            <mat-hint fxLayout="row" fxLayoutAlign="start center">
+              <img
+                *ngIf="loading"
+                src="assets/loading.svg"
+                style="height: 20px;"
+            /></mat-hint>
           </mat-form-field>
         </form>
       </div>

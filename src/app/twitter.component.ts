@@ -164,7 +164,7 @@ export class TwitterComponent implements OnInit {
           ],
           action: JSON.stringify({
             action: "open_in_browser",
-            actionData: "https://twitter.com/kandamkori"
+            actionData: "https://twitter.com/rough_record"
           })
         })
       })

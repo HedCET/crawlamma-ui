@@ -22,5 +22,5 @@ export const toastAction = createSelector(
   (state: AppState, props: { toastAction: string }) =>
     props && props.toastAction && isJSON(props.toastAction)
       ? props.toastAction
-      : state.toast
+      : state.toastAction
 );

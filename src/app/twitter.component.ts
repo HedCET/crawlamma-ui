@@ -4,13 +4,14 @@ import { Component, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import { debounceTime, map, switchAll, take, tap } from "rxjs/operators";
 import { Observable, Subscription } from "rxjs";
 import * as url from "url";
 import { isJSON } from "validator";
 
 import * as AppActions from "./app.actions";
+import { sideMenu, toast, toastAction } from "./app.selectors";
 import { AppState } from "./app.state";
 import { HttpService } from "./http.service";
 import { searchResponseInterface } from "./search.inerface";
@@ -83,40 +84,36 @@ export class TwitterComponent implements OnInit {
     );
 
     this.subscription.add(
-      this.store
-        .select(state => state.app.toast)
-        .subscribe(payload => {
-          if (payload && isJSON(payload)) {
-            const toast = JSON.parse(payload);
+      this.store.pipe(select(toast)).subscribe(payload => {
+        if (payload && isJSON(payload)) {
+          const toast = JSON.parse(payload);
 
-            this.snackbar.open
-              .apply(this.snackbar, toast.args)
-              .onAction()
-              .pipe(take(1))
-              .subscribe(() => {
-                if (toast.action)
-                  this.store.dispatch(
-                    AppActions.toastAction({ toastAction: toast.action })
-                  );
-              });
-          }
-        })
+          this.snackbar.open
+            .apply(this.snackbar, toast.args)
+            .onAction()
+            .pipe(take(1))
+            .subscribe(() => {
+              if (toast.action)
+                this.store.dispatch(
+                  AppActions.toastAction({ toastAction: toast.action })
+                );
+            });
+        }
+      })
     );
 
     this.subscription.add(
-      this.store
-        .select(state => state.app.toastAction)
-        .subscribe(payload => {
-          if (payload && isJSON(payload)) {
-            const toastAction = JSON.parse(payload);
+      this.store.pipe(select(toastAction)).subscribe(payload => {
+        if (payload && isJSON(payload)) {
+          const toastAction = JSON.parse(payload);
 
-            switch (toastAction.action) {
-              case "open_in_browser":
-                window.open(toastAction.actionData);
-                break;
-            }
+          switch (toastAction.action) {
+            case "open_in_browser":
+              window.open(toastAction.actionData);
+              break;
           }
-        })
+        }
+      })
     );
 
     // this.breakpointObserver
@@ -127,7 +124,7 @@ export class TwitterComponent implements OnInit {
     //       this.store.dispatch(AppActions.sideMenuToggle());
     //   });
 
-    this.sideMenu = this.store.select(state => state.app.sideMenu);
+    this.sideMenu = this.store.pipe(select(sideMenu));
   }
 
   ngOnDestroy() {

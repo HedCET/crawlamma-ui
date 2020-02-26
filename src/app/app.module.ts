@@ -3,6 +3,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from "@angular/material/snack-bar";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ServiceWorkerModule } from "@angular/service-worker";
@@ -40,8 +41,11 @@ import { MaterialComponents } from "../material.components";
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production
     }),
-    StoreModule.forRoot({ app: reducer })
+    StoreModule.forRoot({ app: reducer }) // use featureName in ./app.selectors.ts
   ],
-  providers: [HttpService]
+  providers: [
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 3000 } },
+    HttpService
+  ]
 })
 export class AppModule {}

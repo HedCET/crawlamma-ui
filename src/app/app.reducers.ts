@@ -1,4 +1,5 @@
 import { Action, createReducer, on } from "@ngrx/store";
+import { isJSON } from "validator";
 
 import * as AppActions from "./app.actions";
 import { AppState, initialState } from "./app.state";
@@ -13,12 +14,13 @@ const AppReducer = createReducer(
 
   on(AppActions.toast, (state, action) => ({
     ...state,
-    toast: action.toast || ""
+    toast: action.toast && isJSON(action.toast) ? action.toast : ""
   })),
 
   on(AppActions.toastAction, (state, action) => ({
     ...state,
-    toastAction: action.toastAction || ""
+    toastAction:
+      action.toastAction && isJSON(action.toastAction) ? action.toastAction : ""
   }))
 );
 

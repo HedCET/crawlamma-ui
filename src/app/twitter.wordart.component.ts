@@ -65,9 +65,13 @@ export class TwitterWordartComponent implements OnInit {
         if (
           params.selected &&
           -1 <
-            ["favourites", "followers", "friends", "tweeted_at"].indexOf(
-              params.selected
-            )
+            [
+              "favourites",
+              "followers",
+              "friends",
+              "lists",
+              "tweeted_at"
+            ].indexOf(params.selected)
         ) {
           if (params.selected != this.selected.value)
             this.selected.setValue(params.selected);

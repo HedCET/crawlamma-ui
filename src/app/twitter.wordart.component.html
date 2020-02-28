@@ -29,6 +29,7 @@
                   let i = index
                 "
                 [ngStyle]="{ borderTop: i ? '2px dotted #e0e0e0' : '' }"
+                disabled="{{ !wordartResponse[option].hits.length }}"
                 value="{{ option }}"
                 >{{
                   option == "favourites"
@@ -37,6 +38,8 @@
                     ? "FOLLOWERS"
                     : option == "friends"
                     ? "FRIENDS"
+                    : option == "lists"
+                    ? "LISTS"
                     : "INTERVALS"
                 }}</mat-option
               >

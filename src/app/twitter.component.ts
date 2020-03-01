@@ -5,7 +5,7 @@ import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
-import { debounceTime, map, switchAll, take, tap } from "rxjs/operators";
+import { debounceTime, switchMap, take, tap } from "rxjs/operators";
 import { Observable, Subscription } from "rxjs";
 import * as url from "url";
 import { isJSON } from "validator";
@@ -59,14 +59,11 @@ export class TwitterComponent implements OnInit {
     this.subscription.add(
       this.activatedRoute.queryParams
         .pipe(
-          tap(() => {
+          tap(queryParams => {
+            if (queryParams.key) this.searchInput.setValue(queryParams.key);
             this.searching = true;
           }),
-          map(queryParams => {
-            if (queryParams.key) this.searchInput.setValue(queryParams.key);
-            return this.httpService.search(queryParams.key);
-          }),
-          switchAll(),
+          switchMap(queryParams => this.httpService.search(queryParams.key)),
           tap(() => {
             this.searching = false;
           })

@@ -2,7 +2,10 @@ import { Action, createReducer, on } from "@ngrx/store";
 import { isJSON } from "validator";
 
 import * as AppActions from "./app.actions";
-import { AppState, initialState } from "./app.state";
+import { AppState } from "./app.state.interface";
+
+export const featureName = "app";
+const initialState: AppState = { sideMenu: false };
 
 const AppReducer = createReducer(
   initialState,

@@ -11,8 +11,9 @@ import * as url from "url";
 import { isJSON } from "validator";
 
 import * as AppActions from "./app.actions";
-import { sideMenu, toast, toastAction } from "./app.selectors";
-import { AppState } from "./app.state";
+// import { featureName } from "./app.reducers";
+import { searchApiState, sideMenu, toast, toastAction } from "./app.selectors";
+import { AppState } from "./app.state.interface";
 import { HttpService } from "./http.service";
 import { searchResponseInterface } from "./search.inerface";
 import { environment } from "../environments/environment";
@@ -57,21 +58,12 @@ export class TwitterComponent implements OnInit {
 
   ngOnInit() {
     this.subscription.add(
-      this.activatedRoute.queryParams
-        .pipe(
-          tap(queryParams => {
-            if (queryParams.key) this.searchInput.setValue(queryParams.key);
-            this.searching = true;
-          }),
-          switchMap(queryParams => this.httpService.search(queryParams.key)),
-          tap(() => {
-            this.searching = false;
-          })
-        )
-        .subscribe(
-          (searchResponse: searchResponseInterface) =>
-            (this.searchResponse = searchResponse)
-        )
+      this.activatedRoute.queryParams.subscribe(queryParams => {
+        if (queryParams.key) this.searchInput.setValue(queryParams.key);
+        this.store.dispatch(
+          AppActions.search({ payload: queryParams.key || "" })
+        );
+      })
     );
 
     this.subscription.add(
@@ -80,38 +72,38 @@ export class TwitterComponent implements OnInit {
         .subscribe(value => this.updateQueryParams({ key: value }))
     );
 
-    this.subscription.add(
-      this.store.pipe(select(toast)).subscribe(payload => {
-        if (payload && isJSON(payload)) {
-          const toast = JSON.parse(payload);
+    // this.subscription.add(
+    this.store.pipe(select(toast)).subscribe(payload => {
+      if (payload && isJSON(payload)) {
+        const toast = JSON.parse(payload);
 
-          this.snackbar.open
-            .apply(this.snackbar, toast.args)
-            .onAction()
-            .pipe(take(1))
-            .subscribe(() => {
-              if (toast.action)
-                this.store.dispatch(
-                  AppActions.toastAction({ toastAction: toast.action })
-                );
-            });
+        this.snackbar.open
+          .apply(this.snackbar, toast.args)
+          .onAction()
+          .pipe(take(1))
+          .subscribe(() => {
+            if (toast.action)
+              this.store.dispatch(
+                AppActions.toastAction({ toastAction: toast.action })
+              );
+          });
+      }
+    });
+    // );
+
+    // this.subscription.add(
+    this.store.pipe(select(toastAction)).subscribe(payload => {
+      if (payload && isJSON(payload)) {
+        const toastAction = JSON.parse(payload);
+
+        switch (toastAction.key) {
+          case "open_in_browser":
+            window.open(toastAction.value);
+            break;
         }
-      })
-    );
-
-    this.subscription.add(
-      this.store.pipe(select(toastAction)).subscribe(payload => {
-        if (payload && isJSON(payload)) {
-          const toastAction = JSON.parse(payload);
-
-          switch (toastAction.action) {
-            case "open_in_browser":
-              window.open(toastAction.actionData);
-              break;
-          }
-        }
-      })
-    );
+      }
+    });
+    // );
 
     // this.breakpointObserver
     //   .observe(["(max-width: 768px)"])
@@ -121,7 +113,24 @@ export class TwitterComponent implements OnInit {
     //       this.store.dispatch(AppActions.sideMenuToggle());
     //   });
 
+    // this.sideMenu = this.store.select(state => state[featureName].sideMenu);
     this.sideMenu = this.store.pipe(select(sideMenu));
+
+    this.subscription.add(
+      this.store.pipe(select(searchApiState)).subscribe(r => {
+        this.searchResponse = r.resultSet.response;
+        this.searching = r.loading;
+
+        if (r.error)
+          this.store.dispatch(
+            AppActions.toast({
+              toast: JSON.stringify({
+                args: [r.error.message]
+              })
+            })
+          );
+      })
+    );
   }
 
   ngOnDestroy() {
@@ -148,17 +157,10 @@ export class TwitterComponent implements OnInit {
     this.store.dispatch(
       AppActions.toast({
         toast: JSON.stringify({
-          args: [
-            "under construction",
-            "DETAILS",
-            {
-              duration: 3000,
-              panelClass: ["mat-body"]
-            }
-          ],
+          args: ["under construction", "DETAILS"],
           action: JSON.stringify({
-            action: "open_in_browser",
-            actionData: "https://twitter.com/rough_record"
+            key: "open_in_browser",
+            value: "https://twitter.com/rough_record"
           })
         })
       })

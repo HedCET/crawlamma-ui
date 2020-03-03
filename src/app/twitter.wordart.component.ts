@@ -7,7 +7,7 @@ import { Subscription } from "rxjs";
 import * as url from "url";
 
 import * as AppActions from "./app.actions";
-import { AppState } from "./app.state";
+import { AppState } from "./app.state.interface";
 import { HttpService } from "./http.service";
 import { wordartResponseInterface } from "./wordart.interface";
 import { environment } from "../environments/environment";
@@ -136,17 +136,10 @@ export class TwitterWordartComponent implements OnInit {
       this.store.dispatch(
         AppActions.toast({
           toast: JSON.stringify({
-            args: [
-              elementRef.href,
-              "OPEN",
-              {
-                duration: 3000,
-                panelClass: ["mat-body"]
-              }
-            ],
+            args: [elementRef.href, "OPEN"],
             action: JSON.stringify({
-              action: "open_in_browser",
-              actionData: elementRef.href
+              key: "open_in_browser",
+              value: elementRef.href
             })
           })
         })

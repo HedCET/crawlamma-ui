@@ -7,12 +7,6 @@ describe("AppSelectors", () => {
     );
   });
 
-  it("should have a valid toast selector", () => {
-    expect(toast.projector({ toast: "{}" }, { toast: '{"args":[]}' })).toEqual(
-      '{"args":[]}'
-    );
-  });
-
   it("should have a valid toastAction selector", () => {
     expect(
       toastAction.projector(

@@ -28,6 +28,11 @@ import {
 } from "./search.reducers";
 import { TwitterComponent } from "./twitter.component";
 import { TwitterWordartComponent } from "./twitter.wordart.component";
+import { WordartApiEffects } from "./wordart.effects";
+import {
+  featureName as WordartApiFeatureName,
+  reducer as WordartApiReducer
+} from "./wordart.reducers";
 import { environment } from "../environments/environment";
 import { MaterialComponents } from "../material.components";
 
@@ -44,7 +49,7 @@ import { MaterialComponents } from "../material.components";
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    EffectsModule.forRoot([SearchApiEffects]),
+    EffectsModule.forRoot([SearchApiEffects, WordartApiEffects]),
     FlexLayoutModule,
     FormsModule,
     HttpClientModule,
@@ -57,6 +62,7 @@ import { MaterialComponents } from "../material.components";
     StoreModule.forRoot({}),
     StoreModule.forFeature(AppFeatureName, AppReducer),
     StoreModule.forFeature(SearchApiFeatureName, SearchApiReducer),
+    StoreModule.forFeature(WordartApiFeatureName, WordartApiReducer),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
       maxAge: 10

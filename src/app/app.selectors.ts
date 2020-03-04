@@ -4,6 +4,7 @@ import { featureName as AppFeatureName } from "./app.reducers";
 import { AppState } from "./app.state.interface";
 import { GeneralAPI } from "./general.api.interface";
 import { featureName as SearchApiFeatureName } from "./search.reducers";
+import { featureName as WordartApiFeatureName } from "./wordart.reducers";
 
 export const appState = createFeatureSelector<AppState>(AppFeatureName);
 export const sideMenu = createSelector(
@@ -20,4 +21,8 @@ export const toastAction = createSelector(
 
 export const searchApiState = createFeatureSelector<GeneralAPI>(
   SearchApiFeatureName
+);
+
+export const wordartApiState = createFeatureSelector<GeneralAPI>(
+  WordartApiFeatureName
 );

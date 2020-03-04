@@ -1,12 +1,13 @@
 import { Component, ElementRef, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { Store } from "@ngrx/store";
+import { select, Store } from "@ngrx/store";
 import * as moment from "moment";
 import { Subscription } from "rxjs";
 import * as url from "url";
 
 import * as AppActions from "./app.actions";
+import { wordartApiState } from "./app.selectors";
 import { AppState } from "./app.state.interface";
 import { HttpService } from "./http.service";
 import { wordartResponseInterface } from "./wordart.interface";
@@ -43,14 +44,27 @@ export class TwitterWordartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.httpService
-      .wordart()
-      .subscribe((wordartResponse: wordartResponseInterface) => {
-        this.wordartResponse = wordartResponse;
-        reloadScriptTag(environment.wordart_min_js);
-        this.addEventListener();
-        this.loading = false;
-      });
+    this.store.dispatch(AppActions.wordart({ payload: "" }));
+
+    this.subscription.add(
+      this.store.pipe(select(wordartApiState)).subscribe(r => {
+        this.wordartResponse = r.resultSet.response;
+        this.loading = r.loading;
+
+        if (r.error) {
+          this.store.dispatch(
+            AppActions.toast({
+              toast: JSON.stringify({
+                args: [r.error.message]
+              })
+            })
+          );
+        } else {
+          reloadScriptTag(environment.wordart_min_js);
+          this.addEventListener();
+        }
+      })
+    );
 
     this.subscription.add(
       this.selected.valueChanges.subscribe(selectedValue => {

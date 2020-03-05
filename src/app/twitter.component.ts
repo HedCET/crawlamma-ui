@@ -12,9 +12,13 @@ import { isJSON } from "validator";
 
 import * as AppActions from "./app.actions";
 // import { featureName } from "./app.reducers";
-import { searchApiState, sideMenu, toast, toastAction } from "./app.selectors";
-import { AppState } from "./app.state.interface";
-import { HttpService } from "./http.service";
+import {
+  routerState,
+  searchApiState,
+  sideMenu,
+  toast,
+  toastAction
+} from "./app.selectors";
 import { searchResponseInterface } from "./search.inerface";
 import { environment } from "../environments/environment";
 
@@ -47,10 +51,9 @@ export class TwitterComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     // private readonly breakpointObserver: BreakpointObserver,
     private readonly formBuilder: FormBuilder,
-    private readonly httpService: HttpService,
     private readonly snackbar: MatSnackBar,
     private readonly router: Router,
-    private readonly store: Store<{ app: AppState }>
+    private readonly store: Store<any>
   ) {
     this.searchForm = this.formBuilder.group({ searchInput: [""] });
     this.searchInput = this.searchForm.controls["searchInput"];
@@ -58,10 +61,11 @@ export class TwitterComponent implements OnInit {
 
   ngOnInit() {
     this.subscription.add(
-      this.activatedRoute.queryParams.subscribe(queryParams => {
-        if (queryParams.key) this.searchInput.setValue(queryParams.key);
+      this.store.pipe(select(routerState)).subscribe(route => {
+        if (route.queryParams.key)
+          this.searchInput.setValue(route.queryParams.key);
         this.store.dispatch(
-          AppActions.search({ payload: queryParams.key || "" })
+          AppActions.search({ payload: route.queryParams.key || "" })
         );
       })
     );

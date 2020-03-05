@@ -8,10 +8,16 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { EffectsModule } from "@ngrx/effects";
+import {
+  routerReducer as RouterReducer,
+  RouterStateSerializer,
+  StoreRouterConnectingModule
+} from "@ngrx/router-store";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 import { AppComponent } from "./app.component";
+import { routerStoreFeatureName as RouterStoreFeatureName } from "./app.constants";
 import {
   featureName as AppFeatureName,
   reducer as AppReducer
@@ -21,6 +27,7 @@ import { HttpService } from "./http.service";
 // import { MetaReducerModule } from "./meta.reducer.module";
 import { ObjectKeys } from "./objectKeys.pipe";
 import { MatInputAutoFocusDirective } from "./matInputAutoFocus.drective";
+import { Serializer } from "./router.state.serializer";
 import { SearchApiEffects } from "./search.effects";
 import {
   featureName as SearchApiFeatureName,
@@ -63,6 +70,10 @@ import { MaterialComponents } from "../material.components";
     StoreModule.forFeature(AppFeatureName, AppReducer),
     StoreModule.forFeature(SearchApiFeatureName, SearchApiReducer),
     StoreModule.forFeature(WordartApiFeatureName, WordartApiReducer),
+    StoreModule.forFeature(RouterStoreFeatureName, RouterReducer),
+    StoreRouterConnectingModule.forRoot({
+      serializer: Serializer
+    }),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
       maxAge: 10

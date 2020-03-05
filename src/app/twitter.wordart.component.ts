@@ -7,9 +7,7 @@ import { Subscription } from "rxjs";
 import * as url from "url";
 
 import * as AppActions from "./app.actions";
-import { wordartApiState } from "./app.selectors";
-import { AppState } from "./app.state.interface";
-import { HttpService } from "./http.service";
+import { routerState, wordartApiState } from "./app.selectors";
 import { wordartResponseInterface } from "./wordart.interface";
 import { environment } from "../environments/environment";
 import { reloadScriptTag } from "../functions";
@@ -31,9 +29,8 @@ export class TwitterWordartComponent implements OnInit {
     private readonly activatedRoute: ActivatedRoute,
     private readonly elementRef: ElementRef,
     private readonly formBuilder: FormBuilder,
-    private readonly httpService: HttpService,
     private readonly router: Router,
-    private readonly store: Store<{ app: AppState }>
+    private readonly store: Store<any>
   ) {
     this.selectForm = this.formBuilder.group({ selected: ["favourites"] });
     this.selected = this.selectForm.controls["selected"];
@@ -75,9 +72,9 @@ export class TwitterWordartComponent implements OnInit {
     );
 
     this.subscription.add(
-      this.activatedRoute.params.subscribe((params: Params) => {
+      this.store.pipe(select(routerState)).subscribe(route => {
         if (
-          params.selected &&
+          route.params.selected &&
           -1 <
             [
               "favourites",
@@ -85,11 +82,10 @@ export class TwitterWordartComponent implements OnInit {
               "friends",
               "lists",
               "tweeted_at"
-            ].indexOf(params.selected)
-        ) {
-          if (params.selected != this.selected.value)
-            this.selected.setValue(params.selected);
-        }
+            ].indexOf(route.params.selected) &&
+          route.params.selected != this.selected.value
+        )
+          this.selected.setValue(route.params.selected);
       })
     );
 

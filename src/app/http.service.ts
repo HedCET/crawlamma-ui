@@ -6,9 +6,7 @@ import * as url from "url";
 
 import { environment } from "../environments/environment";
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 export class HttpService {
   constructor(private readonly httpClient: HttpClient) {}
 

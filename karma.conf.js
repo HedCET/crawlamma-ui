@@ -1,5 +1,5 @@
-module.exports = config => {
-  config.set({
+module.exports = i => {
+  const config = {
     autoWatch: true,
     basePath: "",
     browsers: ["Chrome"],
@@ -8,12 +8,12 @@ module.exports = config => {
     },
     colors: true,
     coverageIstanbulReporter: {
-      dir: require("path").join(__dirname, "./coverage/my-laundry"),
+      dir: require("path").join(__dirname, "./coverage/twitter-bot-ui"),
       fixWebpackSourcePaths: true,
       reports: ["html", "lcovonly", "text-summary"]
     },
     frameworks: ["@angular-devkit/build-angular", "jasmine"],
-    logLevel: config.LOG_INFO,
+    logLevel: i.LOG_INFO,
     plugins: [
       require("@angular-devkit/build-angular/plugins/karma"),
       require("karma-chrome-launcher"),
@@ -25,5 +25,17 @@ module.exports = config => {
     reporters: ["kjhtml", "progress"],
     restartOnFileChange: true,
     singleRun: false
-  });
+  };
+
+  if (process.env.TRAVIS) {
+    config.browsers = ["Chrome_Travis_CI"];
+    config.customLaunchers = {
+      Chrome_Travis_CI: {
+        base: "Chrome",
+        flags: ["--no-sandbox"]
+      }
+    };
+  }
+
+  i.set(config);
 };

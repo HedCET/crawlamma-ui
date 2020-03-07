@@ -44,25 +44,6 @@ describe("HttpService", () => {
     r.flush(response);
   });
 
-  it("should have a valid wordartResponse", () => {
-    const response: wordartResponseInterface = {
-      key: {
-        hits: ["value"],
-        startAt: 1
-      }
-    };
-
-    httpService.wordart("value").subscribe(r => {
-      expect(r).toEqual(response);
-    });
-
-    const r = httpTestingController.expectOne(
-      `${environment.server_base_url}/wordart?key=value`
-    );
-    expect(r.request.method).toBe("GET");
-    r.flush(response);
-  });
-
   afterEach(() => {
     httpTestingController.verify();
   });

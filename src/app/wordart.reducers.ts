@@ -4,7 +4,7 @@ import * as AppActions from "./app.actions";
 import { GeneralAPI } from "./general.api.interface";
 
 export const featureName = "wordartApi";
-const wordartApiInitialState: GeneralAPI = {
+export const wordartApiInitialState: GeneralAPI = {
   error: null,
   loading: false,
   resultSet: { payload: "", response: {} }

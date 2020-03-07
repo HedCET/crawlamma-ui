@@ -37,7 +37,7 @@ export class TwitterWordartComponent implements OnInit {
   }
 
   sideMenuToggle() {
-    this.store.dispatch(AppActions.sideMenuToggle());
+    this.updateQueryParams({ sideMenu: "1" });
   }
 
   ngOnInit() {
@@ -154,5 +154,13 @@ export class TwitterWordartComponent implements OnInit {
           })
         })
       );
+  }
+
+  updateQueryParams(queryParams: Params) {
+    this.router.navigate([], {
+      queryParams,
+      queryParamsHandling: "merge",
+      relativeTo: this.activatedRoute
+    });
   }
 }

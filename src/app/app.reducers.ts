@@ -5,15 +5,10 @@ import * as AppActions from "./app.actions";
 import { AppState } from "./app.state.interface";
 
 export const featureName = "app";
-const initialState: AppState = { sideMenu: false };
+export const initialState: AppState = {};
 
 const AppReducer = createReducer(
   initialState,
-
-  on(AppActions.sideMenuToggle, state => ({
-    ...state,
-    sideMenu: !state.sideMenu
-  })),
 
   on(AppActions.toast, (state, action) => ({
     ...state,

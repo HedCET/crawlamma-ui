@@ -4,7 +4,7 @@ import * as AppActions from "./app.actions";
 import { GeneralAPI } from "./general.api.interface";
 
 export const featureName = "searchApi";
-const searchApiInitialState: GeneralAPI = {
+export const searchApiInitialState: GeneralAPI = {
   error: null,
   loading: false,
   resultSet: { payload: "", response: { hits: [], total: 0 } }

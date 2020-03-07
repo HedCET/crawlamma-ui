@@ -5,17 +5,15 @@ import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
-import { debounceTime, switchMap, take, tap } from "rxjs/operators";
-import { Observable, Subscription } from "rxjs";
+import { debounceTime, take } from "rxjs/operators";
+import { Subscription } from "rxjs";
 import * as url from "url";
 import { isJSON } from "validator";
 
 import * as AppActions from "./app.actions";
-// import { featureName } from "./app.reducers";
 import {
   routerState,
   searchApiState,
-  sideMenu,
   toast,
   toastAction
 } from "./app.selectors";
@@ -45,7 +43,8 @@ export class TwitterComponent implements OnInit {
   searchInput: AbstractControl;
   searchResponse: searchResponseInterface = { hits: [], total: 0 };
   searching = false;
-  sideMenu: Observable<boolean>;
+  sideMenu: boolean;
+  sideMenuToggled: boolean;
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
@@ -67,6 +66,13 @@ export class TwitterComponent implements OnInit {
         this.store.dispatch(
           AppActions.search({ payload: route.queryParams.key || "" })
         );
+
+        this.sideMenu = !!route.queryParams.sideMenu;
+        if (this.sideMenu) this.sideMenuToggled = false;
+        else
+          setTimeout(() => {
+            this.sideMenuToggled = true;
+          }, 200);
       })
     );
 
@@ -117,9 +123,6 @@ export class TwitterComponent implements OnInit {
     //       this.store.dispatch(AppActions.sideMenuToggle());
     //   });
 
-    // this.sideMenu = this.store.select(state => state[featureName].sideMenu);
-    this.sideMenu = this.store.pipe(select(sideMenu));
-
     this.subscription.add(
       this.store.pipe(select(searchApiState)).subscribe(r => {
         this.searchResponse = r.resultSet.response;
@@ -150,7 +153,7 @@ export class TwitterComponent implements OnInit {
   }
 
   sideMenuToggle() {
-    this.store.dispatch(AppActions.sideMenuToggle());
+    this.updateQueryParams({ sideMenu: undefined });
   }
 
   openInBrowser(twitterId) {

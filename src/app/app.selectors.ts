@@ -10,11 +10,6 @@ import { featureName as SearchApiFeatureName } from "./search.reducers";
 import { featureName as WordartApiFeatureName } from "./wordart.reducers";
 
 export const appState = createFeatureSelector<AppState>(AppFeatureName);
-export const sideMenu = createSelector(
-  appState,
-  (state, props: { sideMenu: boolean }) =>
-    props && props.sideMenu ? props.sideMenu : state.sideMenu
-);
 export const toast = createSelector(appState, state => state.toast);
 export const toastAction = createSelector(
   appState,

@@ -38,3 +38,7 @@ simple-snack-bar > span {
 #word-art-context-menu {
   display: none !important;
 }
+
+.material-icons {
+  font-family: "Material Icons" !important;
+}

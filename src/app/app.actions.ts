@@ -15,9 +15,6 @@ export const searchSuccess = createAction(
   props<{ response }>()
 );
 
-export const sideMenuToggleActionType = "[Twitter Page] sideMenuToggle";
-export const sideMenuToggle = createAction(sideMenuToggleActionType);
-
 export const toastType = "[Twitter Page] toast";
 export const toast = createAction(toastType, props<{ toast: string }>());
 

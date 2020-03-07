@@ -67,12 +67,11 @@
               />
               <div *ngIf="!searching" style="font-size: x-small;">
                 {{
-                  searchResponse.hits.length < searchResponse.total
-                    ? "LAST UPDATED " + searchResponse.hits.length + "/"
-                    : ""
-                }}{{
-                  searchResponse.total
-                    ? searchResponse.total +
+                  searchResponse.hits.length
+                    ? "LAST UPDATED " +
+                      searchResponse.hits.length +
+                      "/" +
+                      searchResponse.total +
                       " TWEETER" +
                       (1 < searchResponse.total ? "S" : "")
                     : "NO TWEETERS"

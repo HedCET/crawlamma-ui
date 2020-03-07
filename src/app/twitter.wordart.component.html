@@ -76,7 +76,9 @@
       style="padding: 24px; width: 100vw;"
     >
       <div class="mat-small" style="font-size: x-small; line-height: 16px;">
-        {{ wordartResponse[selected.value]?.hits?.length }} TWEETERS
+        {{ wordartResponse[selected.value]?.hits?.length || "ZERO" }} TWEETER{{
+          1 < (wordartResponse[selected.value]?.hits?.length || 1) ? "S" : ""
+        }}
       </div>
       <div class="mat-small" style="font-size: x-small; line-height: 16px;">
         FROM {{ getTimeString(wordartResponse[selected.value]?.startAt) }}

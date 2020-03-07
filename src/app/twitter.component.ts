@@ -61,25 +61,26 @@ export class TwitterComponent implements OnInit {
   ngOnInit() {
     this.subscription.add(
       this.store.pipe(select(routerState)).subscribe(route => {
-        if (route.queryParams.key)
-          this.searchInput.setValue(route.queryParams.key);
-        this.store.dispatch(
-          AppActions.search({ payload: route.queryParams.key || "" })
-        );
+        if (
+          route.queryParams.search &&
+          route.queryParams.search != this.searchInput.value
+        )
+          this.searchInput.setValue(route.queryParams.search);
 
         this.sideMenu = !!route.queryParams.sideMenu;
         if (this.sideMenu) this.sideMenuToggled = false;
         else
           setTimeout(() => {
             this.sideMenuToggled = true;
-          }, 200);
+          }, 400);
       })
     );
 
     this.subscription.add(
-      this.searchInput.valueChanges
-        .pipe(debounceTime(400))
-        .subscribe(value => this.updateQueryParams({ key: value }))
+      this.searchInput.valueChanges.pipe(debounceTime(400)).subscribe(value => {
+        this.store.dispatch(AppActions.search({ payload: value }));
+        this.updateQueryParams({ search: value });
+      })
     );
 
     // this.subscription.add(
@@ -138,6 +139,11 @@ export class TwitterComponent implements OnInit {
           );
       })
     );
+
+    setTimeout(() => {
+      if (!this.searchResponse.total)
+        this.store.dispatch(AppActions.search({ payload: "" }));
+    }, 400);
   }
 
   ngOnDestroy() {

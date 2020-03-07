@@ -1,12 +1,11 @@
 <div>
   <div
     style="background-color: #ffffff; position: absolute; z-index: 1;"
-    [style.display]="sideMenu ? 'unset' : 'none'"
+    [style.visibility]="sideMenu ? 'visible' : 'hidden'"
   >
     <div
       fxLayout="column"
       fxLayoutAlign="start center"
-      id="sideMenu"
       style="border-radius: 8px; margin: 8px; width: 384px;"
     >
       <div
@@ -38,8 +37,8 @@
             <input
               [(formControl)]="searchInput"
               autocomplete="off"
+              id="searchInput"
               matInput
-              matInputAutoFocus
               placeholder="example - rough_record"
               style="text-overflow: ellipsis;"
               type="text"

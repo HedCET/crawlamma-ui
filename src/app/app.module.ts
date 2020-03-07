@@ -10,7 +10,6 @@ import { ServiceWorkerModule } from "@angular/service-worker";
 import { EffectsModule } from "@ngrx/effects";
 import {
   routerReducer as RouterReducer,
-  RouterStateSerializer,
   StoreRouterConnectingModule
 } from "@ngrx/router-store";
 import { StoreModule } from "@ngrx/store";
@@ -26,7 +25,7 @@ import { AppRoutingModule } from "./app.routing.module";
 import { HttpService } from "./http.service";
 // import { MetaReducerModule } from "./meta.reducer.module";
 import { ObjectKeys } from "./objectKeys.pipe";
-import { MatInputAutoFocusDirective } from "./matInputAutoFocus.drective";
+// import { MatInputAutoFocusDirective } from "./matInputAutoFocus.drective";
 import { Serializer } from "./router.state.serializer";
 import { SearchApiEffects } from "./search.effects";
 import {
@@ -47,7 +46,7 @@ import { MaterialComponents } from "../material.components";
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-    MatInputAutoFocusDirective,
+    // MatInputAutoFocusDirective,
     ObjectKeys,
     TwitterComponent,
     TwitterWordartComponent

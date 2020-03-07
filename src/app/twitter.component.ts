@@ -1,4 +1,3 @@
-import { trigger, style, animate, transition } from "@angular/animations";
 // import { BreakpointObserver } from "@angular/cdk/layout";
 import { Component, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
@@ -21,17 +20,6 @@ import { searchResponseInterface } from "./search.inerface";
 import { environment } from "../environments/environment";
 
 @Component({
-  animations: [
-    trigger("sideMenuAnimation", [
-      transition("void => *", [
-        style({ transform: "translateX(-100%)" }),
-        animate(200)
-      ]),
-      transition("* => void", [
-        animate(200, style({ transform: "translateX(-100%)" }))
-      ])
-    ])
-  ],
   selector: "twitter-component",
   styleUrls: ["./twitter.component.css"],
   templateUrl: "./twitter.component.html"
@@ -61,18 +49,12 @@ export class TwitterComponent implements OnInit {
   ngOnInit() {
     this.subscription.add(
       this.store.pipe(select(routerState)).subscribe(route => {
+        this.sideMenu = !!route.queryParams.sideMenu;
         if (
           route.queryParams.search &&
           route.queryParams.search != this.searchInput.value
         )
           this.searchInput.setValue(route.queryParams.search);
-
-        this.sideMenu = !!route.queryParams.sideMenu;
-        if (this.sideMenu) this.sideMenuToggled = false;
-        else
-          setTimeout(() => {
-            this.sideMenuToggled = true;
-          }, 400);
       })
     );
 

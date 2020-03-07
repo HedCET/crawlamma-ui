@@ -1,8 +1,7 @@
 <div>
   <div
-    *ngIf="sideMenu"
-    @sideMenuAnimation
     style="background-color: #ffffff; position: absolute; z-index: 1;"
+    [style.display]="sideMenu ? 'unset' : 'none'"
   >
     <div
       fxLayout="column"
@@ -105,7 +104,5 @@
     </div>
   </div>
 
-  <div *ngIf="sideMenuToggled">
-    <router-outlet></router-outlet>
-  </div>
+  <router-outlet></router-outlet>
 </div>

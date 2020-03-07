@@ -1,5 +1,5 @@
 // import { BreakpointObserver } from "@angular/cdk/layout";
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { MatSnackBar } from "@angular/material";
 import { ActivatedRoute, Params, Router } from "@angular/router";
@@ -37,6 +37,7 @@ export class TwitterComponent implements OnInit {
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     // private readonly breakpointObserver: BreakpointObserver,
+    private readonly elementRef: ElementRef,
     private readonly formBuilder: FormBuilder,
     private readonly snackbar: MatSnackBar,
     private readonly router: Router,
@@ -50,11 +51,17 @@ export class TwitterComponent implements OnInit {
     this.subscription.add(
       this.store.pipe(select(routerState)).subscribe(route => {
         this.sideMenu = !!route.queryParams.sideMenu;
+
         if (
           route.queryParams.search &&
           route.queryParams.search != this.searchInput.value
         )
           this.searchInput.setValue(route.queryParams.search);
+
+        if (this.sideMenu)
+          setTimeout(() => {
+            this.elementRef.nativeElement.querySelector("#searchInput").focus();
+          });
       })
     );
 

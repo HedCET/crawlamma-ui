@@ -7,7 +7,7 @@ import { Subscription } from "rxjs";
 import * as url from "url";
 
 import * as AppActions from "./app.actions";
-import { routerState, wordartApiState } from "./app.selectors";
+import { wordartApiState } from "./app.selectors";
 import { wordartResponseInterface } from "./wordart.interface";
 import { environment } from "../environments/environment";
 import { reloadScriptTag } from "../functions";
@@ -65,16 +65,18 @@ export class TwitterWordartComponent implements OnInit {
 
     this.subscription.add(
       this.selected.valueChanges.subscribe(selectedValue => {
-        this.updateSelectedParam(selectedValue);
         reloadScriptTag(environment.wordart_min_js);
         this.addEventListener();
+
+        if (selectedValue != this.activatedRoute.snapshot.params.selected)
+          this.updateSelectedParam(selectedValue);
       })
     );
 
     this.subscription.add(
-      this.store.pipe(select(routerState)).subscribe(route => {
+      this.activatedRoute.params.subscribe(params => {
         if (
-          route.params.selected &&
+          params.selected &&
           -1 <
             [
               "favourites",
@@ -82,10 +84,10 @@ export class TwitterWordartComponent implements OnInit {
               "friends",
               "lists",
               "tweeted_at"
-            ].indexOf(route.params.selected) &&
-          route.params.selected != this.selected.value
+            ].indexOf(params.selected) &&
+          params.selected != this.selected.value
         )
-          this.selected.setValue(route.params.selected);
+          this.selected.setValue(params.selected);
       })
     );
 

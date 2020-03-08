@@ -10,12 +10,7 @@ import * as url from "url";
 import { isJSON } from "validator";
 
 import * as AppActions from "./app.actions";
-import {
-  routerState,
-  searchApiState,
-  toast,
-  toastAction
-} from "./app.selectors";
+import { searchApiState, toast, toastAction } from "./app.selectors";
 import { searchResponseInterface } from "./search.inerface";
 import { environment } from "../environments/environment";
 
@@ -49,14 +44,11 @@ export class TwitterComponent implements OnInit {
 
   ngOnInit() {
     this.subscription.add(
-      this.store.pipe(select(routerState)).subscribe(route => {
-        this.sideMenu = !!route.queryParams.sideMenu;
+      this.activatedRoute.queryParams.subscribe(queryParams => {
+        this.sideMenu = !!queryParams.sideMenu;
 
-        if (
-          route.queryParams.search &&
-          route.queryParams.search != this.searchInput.value
-        )
-          this.searchInput.setValue(route.queryParams.search);
+        if (queryParams.search && queryParams.search != this.searchInput.value)
+          this.searchInput.setValue(queryParams.search);
 
         if (this.sideMenu)
           setTimeout(() => {

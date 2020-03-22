@@ -2,20 +2,9 @@
   <div fxLayout="column" fxLayoutAlign="start end">
     <div
       fxLayout="row"
-      fxLayoutAlign="space-between start"
+      fxLayoutAlign="end center"
       style="padding: 12px 24px; width: 100vw;"
     >
-      <button
-        (click)="sideMenuToggle()"
-        mat-button
-        mat-icon-button
-        style="margin: 8px 12px 0 -4px;"
-      >
-        <mat-icon style="color: #212121; cursor: pointer;">
-          menu
-        </mat-icon>
-      </button>
-
       <div fxLayout="row wrap" fxLayoutAlign="start center" class="mat-small">
         TRENDS IN&nbsp;
         <form [formGroup]="selectForm">
@@ -73,7 +62,7 @@
     <div
       fxLayout="column"
       fxLayoutAlign="center end"
-      style="padding: 24px; width: 100vw;"
+      style="padding: 12px 24px; width: 100vw;"
     >
       <div class="mat-small" style="font-size: x-small; line-height: 16px;">
         {{ wordartResponse[selected.value]?.hits?.length || "ZERO" }} TWEETER{{

@@ -36,10 +36,6 @@ export class TwitterWordartComponent implements OnInit {
     this.selected = this.selectForm.controls["selected"];
   }
 
-  sideMenuToggle() {
-    this.updateQueryParams({ sideMenu: "1" });
-  }
-
   ngOnInit() {
     this.store.dispatch(AppActions.wordart({ payload: "" }));
 
@@ -111,8 +107,8 @@ export class TwitterWordartComponent implements OnInit {
     );
   }
 
-  getTimeString(ms?: number) {
-    return moment(ms).format("YYYY-MM-DD hh:mm:ss A");
+  getTimeString(startAt?: string) {
+    return moment(startAt).format("YYYY-MM-DD hh:mm:ss A");
   }
 
   addEventListener() {
@@ -156,13 +152,5 @@ export class TwitterWordartComponent implements OnInit {
           })
         })
       );
-  }
-
-  updateQueryParams(queryParams: Params) {
-    this.router.navigate([], {
-      queryParams,
-      queryParamsHandling: "merge",
-      relativeTo: this.activatedRoute
-    });
   }
 }

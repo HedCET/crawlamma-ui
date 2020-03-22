@@ -11,20 +11,17 @@ import {
   featureName as AppFeatureName,
   initialState as AppInitialState
 } from "./app.reducers";
-import {
-  featureName as SearchApiFeatureName,
-  searchApiInitialState as SearchApiInitialState
-} from "./search.reducers";
-import { TwitterComponent } from "./twitter.component";
+import { MaterialComponents } from "../material.components";
+import { ObjectKeys } from "./objectKeys.pipe";
+import { TwitterWordartComponent } from "./twitter.wordart.component";
 import {
   featureName as WordartApiFeatureName,
   wordartApiInitialState as WordartApiInitialState
 } from "./wordart.reducers";
-import { MaterialComponents } from "../material.components";
 
 describe("TwitterComponent", () => {
-  let fixture: ComponentFixture<TwitterComponent>;
-  let component: TwitterComponent;
+  let fixture: ComponentFixture<TwitterWordartComponent>;
+  let component: TwitterWordartComponent;
   let store: MockStore<any>;
 
   let initialState = {
@@ -32,13 +29,12 @@ describe("TwitterComponent", () => {
     [RouterStoreFeatureName]: {
       state: { params: {}, queryParams: {}, url: "/" }
     },
-    [SearchApiFeatureName]: SearchApiInitialState,
     [WordartApiFeatureName]: WordartApiInitialState
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [TwitterComponent],
+      declarations: [ObjectKeys, TwitterWordartComponent],
       imports: [
         BrowserAnimationsModule,
         FormsModule,
@@ -53,7 +49,7 @@ describe("TwitterComponent", () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(TwitterComponent);
+    fixture = TestBed.createComponent(TwitterWordartComponent);
     component = fixture.debugElement.componentInstance;
     store = TestBed.get(Store);
   }));
@@ -63,28 +59,28 @@ describe("TwitterComponent", () => {
   });
 
   it("should have a valid form", () => {
-    // component.searchForm.controls.searchInput.setValue("");
-    expect(component.searchForm.valid).toEqual(true);
+    // component.selectForm.controls.selected.setValue("favourites");
+    expect(component.selectForm.valid).toEqual(true);
   });
 
-  it("[setState] should have a valid sideMenu state", () => {
+  it("[setState] should have a valid selected state", () => {
     store.setState({
       ...initialState,
       [RouterStoreFeatureName]: {
-        state: { params: {}, queryParams: { sideMenu: 1 }, url: "/" }
+        state: { params: {}, queryParams: { key: "favourites" }, url: "/" }
       }
     });
     fixture.detectChanges();
-    expect(component.sideMenu).toEqual(true);
+    expect(component.selected.value).toEqual("favourites");
   });
 
-  it("[overrideSelector] should have a valid sideMenu state", () => {
+  it("[overrideSelector] should have a valid selected state", () => {
     store.overrideSelector(routerState, {
       params: {},
-      queryParams: { sideMenu: 1 },
+      queryParams: { selected: "favourites" },
       url: "/"
     });
     fixture.detectChanges();
-    expect(component.sideMenu).toEqual(true);
+    expect(component.selected.value).toEqual("favourites");
   });
 });

@@ -27,11 +27,6 @@ import { HttpService } from "./http.service";
 import { ObjectKeys } from "./objectKeys.pipe";
 // import { MatInputAutoFocusDirective } from "./matInputAutoFocus.drective";
 import { Serializer } from "./router.state.serializer";
-import { SearchApiEffects } from "./search.effects";
-import {
-  featureName as SearchApiFeatureName,
-  reducer as SearchApiReducer
-} from "./search.reducers";
 import { TwitterComponent } from "./twitter.component";
 import { TwitterWordartComponent } from "./twitter.wordart.component";
 import { WordartApiEffects } from "./wordart.effects";
@@ -55,7 +50,7 @@ import { MaterialComponents } from "../material.components";
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    EffectsModule.forRoot([SearchApiEffects, WordartApiEffects]),
+    EffectsModule.forRoot([WordartApiEffects]),
     FlexLayoutModule,
     FormsModule,
     HttpClientModule,
@@ -67,7 +62,6 @@ import { MaterialComponents } from "../material.components";
     }),
     StoreModule.forRoot({}),
     StoreModule.forFeature(AppFeatureName, AppReducer),
-    StoreModule.forFeature(SearchApiFeatureName, SearchApiReducer),
     StoreModule.forFeature(WordartApiFeatureName, WordartApiReducer),
     StoreModule.forFeature(RouterStoreFeatureName, RouterReducer),
     StoreRouterConnectingModule.forRoot({

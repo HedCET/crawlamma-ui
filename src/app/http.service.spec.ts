@@ -5,7 +5,6 @@ import {
 import { async, TestBed } from "@angular/core/testing";
 
 import { HttpService } from "./http.service";
-import { searchResponseInterface } from "./search.inerface";
 import { wordartResponseInterface } from "./wordart.interface";
 import { environment } from "../environments/environment";
 
@@ -27,18 +26,20 @@ describe("HttpService", () => {
     expect(httpService).toBeTruthy();
   });
 
-  it("should have a valid searchResponse", () => {
-    const response: searchResponseInterface = {
-      hits: [{ created_at: 1, tweeted_at: 1 }],
-      total: 1
+  it("should have a valid wordartResponse", () => {
+    const response: wordartResponseInterface = {
+      tweeted_at: {
+        hits: [],
+        startAt: "1970-01-01T00:00:00Z"
+      }
     };
 
-    httpService.search("value").subscribe(r => {
+    httpService.wordart("").subscribe(r => {
       expect(r).toEqual(response);
     });
 
     const r = httpTestingController.expectOne(
-      `${environment.server_base_url}/search?key=value`
+      `${environment.server_base_url}/wordart?key=`
     );
     expect(r.request.method).toBe("GET");
     r.flush(response);

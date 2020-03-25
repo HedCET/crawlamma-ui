@@ -75,7 +75,11 @@ import { MaterialComponents } from "../material.components";
   providers: [
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: { duration: 3000, panelClass: ["mat-body"] }
+      useValue: {
+        duration: 5000,
+        horizontalPosition: "left",
+        panelClass: ["mat-body"]
+      }
     },
     HttpService
   ]

@@ -24,11 +24,12 @@ body {
 }
 
 .mat-snack-bar-container {
+  border-radius: 22px !important;
   width: auto !important;
 }
 
 simple-snack-bar > span {
-  font-style: italic;
+  padding-left: 6px;
 }
 
 .mat-simple-snackbar-action * {

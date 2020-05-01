@@ -10,7 +10,7 @@ import { ServiceWorkerModule } from "@angular/service-worker";
 import { EffectsModule } from "@ngrx/effects";
 import {
   routerReducer as RouterReducer,
-  StoreRouterConnectingModule
+  StoreRouterConnectingModule,
 } from "@ngrx/router-store";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
@@ -19,7 +19,7 @@ import { AppComponent } from "./app.component";
 import { routerStoreFeatureName as RouterStoreFeatureName } from "./app.constants";
 import {
   featureName as AppFeatureName,
-  reducer as AppReducer
+  reducer as AppReducer,
 } from "./app.reducers";
 import { AppRoutingModule } from "./app.routing.module";
 import { HttpService } from "./http.service";
@@ -32,7 +32,7 @@ import { TwitterWordartComponent } from "./twitter.wordart.component";
 import { WordartApiEffects } from "./wordart.effects";
 import {
   featureName as WordartApiFeatureName,
-  reducer as WordartApiReducer
+  reducer as WordartApiReducer,
 } from "./wordart.reducers";
 import { environment } from "../environments/environment";
 import { MaterialComponents } from "../material.components";
@@ -44,7 +44,7 @@ import { MaterialComponents } from "../material.components";
     // MatInputAutoFocusDirective,
     ObjectKeys,
     TwitterComponent,
-    TwitterWordartComponent
+    TwitterWordartComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -58,19 +58,17 @@ import { MaterialComponents } from "../material.components";
     // MetaReducerModule,
     ReactiveFormsModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
-      enabled: environment.production
+      enabled: environment.production,
     }),
     StoreModule.forRoot({}),
     StoreModule.forFeature(AppFeatureName, AppReducer),
     StoreModule.forFeature(WordartApiFeatureName, WordartApiReducer),
     StoreModule.forFeature(RouterStoreFeatureName, RouterReducer),
-    StoreRouterConnectingModule.forRoot({
-      serializer: Serializer
-    }),
+    StoreRouterConnectingModule.forRoot({ serializer: Serializer }),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
-      maxAge: 10
-    })
+      maxAge: 10,
+    }),
   ],
   providers: [
     {
@@ -78,10 +76,10 @@ import { MaterialComponents } from "../material.components";
       useValue: {
         duration: 5000,
         horizontalPosition: "left",
-        panelClass: ["mat-body"]
-      }
+        panelClass: ["mat-body"],
+      },
     },
-    HttpService
-  ]
+    HttpService,
+  ],
 })
 export class AppModule {}

@@ -21,15 +21,17 @@
                 disabled="{{ !wordartResponse[option].hits.length }}"
                 value="{{ option }}"
                 >{{
-                  option == "favourites"
-                    ? "FAVOURITES"
-                    : option == "followers"
+                  option === "followers"
                     ? "FOLLOWERS"
-                    : option == "friends"
-                    ? "FRIENDS"
+                    : option === "friends"
+                    ? "FOLLOWINGERS"
+                    : option === "likes"
+                    ? "LIKERS"
                     : option == "lists"
                     ? "LISTS"
-                    : "INTERVALS"
+                    : option === "tweeted_at"
+                    ? "QUITTERS"
+                    : option.toUpperCase()
                 }}</mat-option
               >
             </mat-select>

@@ -21,10 +21,10 @@ describe("WordartApiEffects", () => {
         {
           provide: HttpService,
           useValue: {
-            wordart: jasmine.createSpy()
-          }
-        }
-      ]
+            wordart: jasmine.createSpy(),
+          },
+        },
+      ],
     });
 
     effects = TestBed.get(WordartApiEffects);
@@ -35,8 +35,8 @@ describe("WordartApiEffects", () => {
     const wordartResponse: wordartResponseInterface = {
       tweeted_at: {
         hits: [],
-        startAt: "1970-01-01T00:00:00Z"
-      }
+        startAt: "1970-01-01T00:00:00Z",
+      },
     };
 
     const action = wordart({ payload: "" });

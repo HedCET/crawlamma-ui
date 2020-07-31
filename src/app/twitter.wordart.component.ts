@@ -15,7 +15,7 @@ import { reloadScriptTag } from "../functions";
 @Component({
   selector: "wordart-component",
   styleUrls: ["./twitter.wordart.component.css"],
-  templateUrl: "./twitter.wordart.component.html"
+  templateUrl: "./twitter.wordart.component.html",
 })
 export class TwitterWordartComponent implements OnInit {
   private subscription = new Subscription();
@@ -32,7 +32,7 @@ export class TwitterWordartComponent implements OnInit {
     private readonly router: Router,
     private readonly store: Store<any>
   ) {
-    this.selectForm = this.formBuilder.group({ selected: ["favourites"] });
+    this.selectForm = this.formBuilder.group({ selected: ["friends"] });
     this.selected = this.selectForm.controls["selected"];
   }
 
@@ -40,7 +40,7 @@ export class TwitterWordartComponent implements OnInit {
     this.store.dispatch(AppActions.wordart({ payload: "" }));
 
     this.subscription.add(
-      this.store.pipe(select(wordartApiState)).subscribe(r => {
+      this.store.pipe(select(wordartApiState)).subscribe((r) => {
         this.wordartResponse = r.resultSet.response;
         this.loading = r.loading;
 
@@ -48,8 +48,8 @@ export class TwitterWordartComponent implements OnInit {
           this.store.dispatch(
             AppActions.toast({
               toast: JSON.stringify({
-                args: [r.error.message]
-              })
+                args: [r.error.message],
+              }),
             })
           );
         } else {
@@ -60,7 +60,7 @@ export class TwitterWordartComponent implements OnInit {
     );
 
     this.subscription.add(
-      this.selected.valueChanges.subscribe(selectedValue => {
+      this.selected.valueChanges.subscribe((selectedValue) => {
         reloadScriptTag(environment.wordart_min_js);
         this.addEventListener();
 
@@ -70,17 +70,13 @@ export class TwitterWordartComponent implements OnInit {
     );
 
     this.subscription.add(
-      this.activatedRoute.params.subscribe(params => {
+      this.activatedRoute.params.subscribe((params) => {
         if (
           params.selected &&
           -1 <
-            [
-              "favourites",
-              "followers",
-              "friends",
-              "lists",
-              "tweeted_at"
-            ].indexOf(params.selected) &&
+            ["followers", "friends", "likes", "lists", "tweeted_at"].indexOf(
+              params.selected
+            ) &&
           params.selected != this.selected.value
         )
           this.selected.setValue(params.selected);
@@ -94,13 +90,13 @@ export class TwitterWordartComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  updateSelectedParam(selectedValue: string = "favourites") {
+  updateSelectedParam(selectedValue: string = "likes") {
     this.router.navigate(["../", selectedValue], {
-      relativeTo: this.activatedRoute
+      relativeTo: this.activatedRoute,
     });
   }
 
-  getSrc(selectedValue: string = "favourites") {
+  getSrc(selectedValue: string = "likes") {
     return url.resolve(
       environment.server_base_url,
       `wordart?key=${selectedValue}`
@@ -147,9 +143,9 @@ export class TwitterWordartComponent implements OnInit {
             args: [elementRef.href, "OPEN"],
             action: JSON.stringify({
               key: "open_in_browser",
-              value: elementRef.href
-            })
-          })
+              value: elementRef.href,
+            }),
+          }),
         })
       );
   }

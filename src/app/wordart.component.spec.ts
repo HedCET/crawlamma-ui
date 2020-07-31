@@ -9,14 +9,14 @@ import { routerStoreFeatureName as RouterStoreFeatureName } from "./app.constant
 import { routerState } from "./app.selectors";
 import {
   featureName as AppFeatureName,
-  initialState as AppInitialState
+  initialState as AppInitialState,
 } from "./app.reducers";
 import { MaterialComponents } from "../material.components";
 import { ObjectKeys } from "./objectKeys.pipe";
 import { TwitterWordartComponent } from "./twitter.wordart.component";
 import {
   featureName as WordartApiFeatureName,
-  wordartApiInitialState as WordartApiInitialState
+  wordartApiInitialState as WordartApiInitialState,
 } from "./wordart.reducers";
 
 describe("TwitterComponent", () => {
@@ -27,9 +27,9 @@ describe("TwitterComponent", () => {
   let initialState = {
     [AppFeatureName]: AppInitialState,
     [RouterStoreFeatureName]: {
-      state: { params: {}, queryParams: {}, url: "/" }
+      state: { params: {}, queryParams: {}, url: "/" },
     },
-    [WordartApiFeatureName]: WordartApiInitialState
+    [WordartApiFeatureName]: WordartApiInitialState,
   };
 
   beforeEach(async(() => {
@@ -40,13 +40,13 @@ describe("TwitterComponent", () => {
         FormsModule,
         MaterialComponents,
         ReactiveFormsModule,
-        RouterTestingModule
+        RouterTestingModule,
       ],
       providers: [
         provideMockStore({
-          initialState
-        })
-      ]
+          initialState,
+        }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TwitterWordartComponent);
@@ -59,7 +59,7 @@ describe("TwitterComponent", () => {
   });
 
   it("should have a valid form", () => {
-    // component.selectForm.controls.selected.setValue("favourites");
+    // component.selectForm.controls.selected.setValue("friends");
     expect(component.selectForm.valid).toEqual(true);
   });
 
@@ -67,20 +67,20 @@ describe("TwitterComponent", () => {
     store.setState({
       ...initialState,
       [RouterStoreFeatureName]: {
-        state: { params: {}, queryParams: { key: "favourites" }, url: "/" }
-      }
+        state: { params: {}, queryParams: { key: "friends" }, url: "/" },
+      },
     });
     fixture.detectChanges();
-    expect(component.selected.value).toEqual("favourites");
+    expect(component.selected.value).toEqual("friends");
   });
 
   it("[overrideSelector] should have a valid selected state", () => {
     store.overrideSelector(routerState, {
       params: {},
-      queryParams: { selected: "favourites" },
-      url: "/"
+      queryParams: { selected: "friends" },
+      url: "/",
     });
     fixture.detectChanges();
-    expect(component.selected.value).toEqual("favourites");
+    expect(component.selected.value).toEqual("friends");
   });
 });

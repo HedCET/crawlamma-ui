@@ -1,6 +1,6 @@
 import {
   HttpClientTestingModule,
-  HttpTestingController
+  HttpTestingController,
 } from "@angular/common/http/testing";
 import { async, TestBed } from "@angular/core/testing";
 
@@ -15,7 +15,7 @@ describe("HttpService", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [HttpService]
+      providers: [HttpService],
     });
 
     httpService = TestBed.get(HttpService);
@@ -30,11 +30,11 @@ describe("HttpService", () => {
     const response: wordartResponseInterface = {
       tweeted_at: {
         hits: [],
-        startAt: "1970-01-01T00:00:00Z"
-      }
+        startAt: "1970-01-01T00:00:00Z",
+      },
     };
 
-    httpService.wordart("").subscribe(r => {
+    httpService.wordart("").subscribe((r) => {
       expect(r).toEqual(response);
     });
 

@@ -5,6 +5,7 @@ chrome-profiler-events.json
 speed-measure-plugin.json
 
 npm-debug.log
+package-lock.json
 testem.log
 yarn-error.log
 

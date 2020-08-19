@@ -103,8 +103,8 @@ export class TwitterWordartComponent implements OnInit {
     );
   }
 
-  getTimeString(startAt?: string) {
-    return moment(startAt || undefined).format("YYYY-MM-DD hh:mm:ss A");
+  getTimeString(startedAt?: string) {
+    return moment(startedAt || undefined).format("YYYY-MM-DD hh:mm:ss A");
   }
 
   addEventListener() {

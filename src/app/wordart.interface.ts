@@ -1,6 +1,6 @@
 export interface wordartResponseInterface {
   [keys: string]: {
     hits: string[];
-    startAt: string;
+    startedAt: string;
   };
 }

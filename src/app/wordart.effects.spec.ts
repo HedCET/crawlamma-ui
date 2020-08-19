@@ -35,7 +35,7 @@ describe("WordartApiEffects", () => {
     const wordartResponse: wordartResponseInterface = {
       tweeted_at: {
         hits: [],
-        startAt: "1970-01-01T00:00:00Z",
+        startedAt: "1970-01-01T00:00:00Z",
       },
     };
 

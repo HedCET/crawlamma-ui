@@ -31,4 +31,5 @@ yarn-error.log
 !.vscode/tasks.json
 
 .firebaserc
+firebase-debug.log
 /.firebase

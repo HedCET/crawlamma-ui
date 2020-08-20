@@ -10,11 +10,16 @@ import { environment } from "../environments/environment";
 export class HttpService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  wordart(key: string = "") {
+  wordart(key: string = "", tags: string = "") {
     return this.httpClient
-      .get(url.resolve(environment.server_base_url, `wordart?key=${key}`))
+      .get(
+        url.resolve(
+          environment.server_base_url,
+          `wordart?key=${key}&tags=${tags}`
+        )
+      )
       .pipe(
-        retryWhen(e =>
+        retryWhen((e) =>
           e.pipe(
             concatMap((e, i) =>
               iif(() => i > 3, throwError(e), of(e).pipe(delay(1000 * 10)))

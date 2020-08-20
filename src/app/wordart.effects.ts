@@ -11,11 +11,13 @@ export class WordartApiEffects {
   wordartApi = createEffect(() =>
     this.actions.pipe(
       ofType(AppActions.wordart),
-      switchMap(action =>
-        this.httpService.wordart(action.payload).pipe(
-          map(response => AppActions.wordartSuccess({ response })),
-          catchError(error => of(AppActions.wordartError({ error })))
-        )
+      switchMap((action) =>
+        this.httpService
+          .wordart(action.payload.key, action.payload.tags || "")
+          .pipe(
+            map((response) => AppActions.wordartSuccess({ response })),
+            catchError((error) => of(AppActions.wordartError({ error })))
+          )
       )
     )
   );

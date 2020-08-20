@@ -10,7 +10,10 @@ export const toastAction = createAction(
 );
 
 export const wordartType = "[Wordart API] request";
-export const wordart = createAction(wordartType, props<{ payload: string }>());
+export const wordart = createAction(
+  wordartType,
+  props<{ payload: { key: string; tags?: string } }>()
+);
 
 export const wordartErrorType = "[Wordart API] request.error";
 export const wordartError = createAction(

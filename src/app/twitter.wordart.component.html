@@ -9,7 +9,14 @@
         TRENDS IN&nbsp;
         <form [formGroup]="selectForm">
           <mat-form-field style="margin-top: 6px; width: 160px;">
-            <mat-label>MALAYALAM TWEETS</mat-label>
+            <mat-label
+              >{{
+                (
+                  activatedRoute.snapshot.queryParams.tags || "MALAYALAM"
+                ).toUpperCase()
+              }}
+              TWEETS</mat-label
+            >
 
             <mat-select [(formControl)]="selected">
               <mat-option

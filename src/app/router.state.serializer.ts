@@ -16,7 +16,7 @@ export class Serializer implements RouterStateSerializer<RouterState> {
     const { params } = route;
     const {
       root: { queryParams },
-      url
+      url,
     } = routerState;
 
     return { url, params, queryParams };

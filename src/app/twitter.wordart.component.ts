@@ -23,10 +23,11 @@ export class TwitterWordartComponent implements OnInit {
   loading = true;
   selectForm: FormGroup;
   selected: AbstractControl;
+  services = ["followers", "friends", "likes", "lists", "tweeted_at"];
   wordartResponse: wordartResponseInterface = {};
 
   constructor(
-    private readonly activatedRoute: ActivatedRoute,
+    public readonly activatedRoute: ActivatedRoute,
     private readonly elementRef: ElementRef,
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
@@ -37,7 +38,14 @@ export class TwitterWordartComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(AppActions.wordart({ payload: "" }));
+    this.store.dispatch(
+      AppActions.wordart({
+        payload: {
+          key: "",
+          tags: this.activatedRoute.snapshot.queryParams.tags,
+        },
+      })
+    );
 
     this.subscription.add(
       this.store.pipe(select(wordartApiState)).subscribe((r) => {
@@ -60,28 +68,27 @@ export class TwitterWordartComponent implements OnInit {
     );
 
     this.subscription.add(
-      this.selected.valueChanges.subscribe((selectedValue) => {
+      this.selected.valueChanges.subscribe((key) => {
         reloadScriptTag(environment.wordart_min_js);
         this.addEventListener();
 
-        if (selectedValue != this.activatedRoute.snapshot.params.selected)
-          this.updateSelectedParam(selectedValue);
+        if (key !== this.activatedRoute.snapshot.queryParams.key)
+          this.updateQueryParams({ key });
       })
     );
 
     this.subscription.add(
-      this.activatedRoute.params.subscribe((params) => {
+      this.activatedRoute.queryParams.subscribe((queryParams) => {
         if (
-          params.selected &&
-          -1 <
-            ["followers", "friends", "likes", "lists", "tweeted_at"].indexOf(
-              params.selected
-            ) &&
-          params.selected != this.selected.value
+          -1 < this.services.indexOf(queryParams.key) &&
+          queryParams.key !== this.selected.value
         )
-          this.selected.setValue(params.selected);
+          this.selected.setValue(queryParams.key);
       })
     );
+
+    if (!this.activatedRoute.snapshot.queryParams.key)
+      this.updateQueryParams({ key: this.selected.value });
 
     window["DISPLAY_CLOUD_REDEFINE_URL_PATTERN"] = "https://twitter.com/";
   }
@@ -90,16 +97,20 @@ export class TwitterWordartComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  updateSelectedParam(selectedValue: string = "likes") {
-    this.router.navigate(["../", selectedValue], {
+  updateQueryParams(queryParams: Params = {}) {
+    this.router.navigate([], {
+      queryParams: queryParams,
+      queryParamsHandling: "merge",
       relativeTo: this.activatedRoute,
     });
   }
 
-  getSrc(selectedValue: string = "likes") {
+  getSrc(key: string = "followers") {
     return url.resolve(
       environment.server_base_url,
-      `wordart?key=${selectedValue}`
+      `wordart?key=${key}&tags=${
+        this.activatedRoute.snapshot.queryParams.tags || ""
+      }`
     );
   }
 

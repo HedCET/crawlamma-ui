@@ -1,4 +1,3 @@
-// import { APP_BASE_HREF } from '@ansgular/common'
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -23,9 +22,7 @@ import {
 } from "./app.reducers";
 import { AppRoutingModule } from "./app.routing.module";
 import { HttpService } from "./http.service";
-// import { MetaReducerModule } from "./meta.reducer.module";
 import { ObjectKeys } from "./objectKeys.pipe";
-// import { MatInputAutoFocusDirective } from "./matInputAutoFocus.drective";
 import { Serializer } from "./router.state.serializer";
 import { TwitterComponent } from "./twitter.component";
 import { TwitterWordartComponent } from "./twitter.wordart.component";
@@ -41,26 +38,32 @@ import { MaterialComponents } from "../material.components";
   bootstrap: [AppComponent],
   declarations: [
     AppComponent,
-    // MatInputAutoFocusDirective,
     ObjectKeys,
     TwitterComponent,
     TwitterWordartComponent,
   ],
   imports: [
-    AppRoutingModule,
-    BrowserAnimationsModule,
     BrowserModule,
-    EffectsModule.forRoot([WordartApiEffects]),
+    BrowserAnimationsModule,
+    MaterialComponents,
     FlexLayoutModule,
     FormsModule,
-    HttpClientModule,
-    MaterialComponents,
-    // MetaReducerModule,
     ReactiveFormsModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
     }),
-    StoreModule.forRoot({}),
+    AppRoutingModule,
+    HttpClientModule,
+    EffectsModule.forRoot([WordartApiEffects]),
+    StoreModule.forRoot(
+      {},
+      {
+        runtimeChecks: {
+          strictActionImmutability: true,
+          strictStateImmutability: true,
+        },
+      }
+    ),
     StoreModule.forFeature(AppFeatureName, AppReducer),
     StoreModule.forFeature(WordartApiFeatureName, WordartApiReducer),
     StoreModule.forFeature(RouterStoreFeatureName, RouterReducer),
@@ -71,6 +74,7 @@ import { MaterialComponents } from "../material.components";
     }),
   ],
   providers: [
+    HttpService,
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: {
@@ -79,7 +83,6 @@ import { MaterialComponents } from "../material.components";
         panelClass: ["mat-body"],
       },
     },
-    HttpService,
   ],
 })
 export class AppModule {}

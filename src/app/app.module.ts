@@ -7,15 +7,10 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { EffectsModule } from "@ngrx/effects";
-import {
-  routerReducer as RouterReducer,
-  StoreRouterConnectingModule,
-} from "@ngrx/router-store";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
 import { AppComponent } from "./app.component";
-import { routerStoreFeatureName as RouterStoreFeatureName } from "./app.constants";
 import {
   featureName as AppFeatureName,
   reducer as AppReducer,
@@ -23,7 +18,6 @@ import {
 import { AppRoutingModule } from "./app.routing.module";
 import { HttpService } from "./http.service";
 import { ObjectKeys } from "./objectKeys.pipe";
-import { Serializer } from "./router.state.serializer";
 import { TwitterComponent } from "./twitter.component";
 import { TwitterWordartComponent } from "./twitter.wordart.component";
 import { WordartApiEffects } from "./wordart.effects";
@@ -43,18 +37,9 @@ import { MaterialComponents } from "../material.components";
     TwitterWordartComponent,
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MaterialComponents,
-    FlexLayoutModule,
-    FormsModule,
-    ReactiveFormsModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
       enabled: environment.production,
     }),
-    AppRoutingModule,
-    HttpClientModule,
-    EffectsModule.forRoot([WordartApiEffects]),
     StoreModule.forRoot(
       {},
       {
@@ -64,10 +49,17 @@ import { MaterialComponents } from "../material.components";
         },
       }
     ),
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialComponents,
+    FlexLayoutModule,
+    HttpClientModule,
+    AppRoutingModule,
     StoreModule.forFeature(AppFeatureName, AppReducer),
     StoreModule.forFeature(WordartApiFeatureName, WordartApiReducer),
-    StoreModule.forFeature(RouterStoreFeatureName, RouterReducer),
-    StoreRouterConnectingModule.forRoot({ serializer: Serializer }),
+    EffectsModule.forRoot([WordartApiEffects]),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
       maxAge: 10,

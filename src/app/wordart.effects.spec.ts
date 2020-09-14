@@ -39,7 +39,7 @@ describe("WordartApiEffects", () => {
       },
     };
 
-    const action = wordart({ payload: "" });
+    const action = wordart({ payload: { key: "" } });
     const actionSuccess = wordartSuccess({ response: wordartResponse });
 
     actions = hot("-a", { a: action });
@@ -53,7 +53,7 @@ describe("WordartApiEffects", () => {
   it("should return a stream with wordart error response", () => {
     const error = new Error("500") as any;
 
-    const action = wordart({ payload: "" });
+    const action = wordart({ payload: { key: "" } });
     const actionError = wordartError({ error });
 
     actions = hot("-a", { a: action });

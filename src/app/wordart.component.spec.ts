@@ -1,12 +1,11 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { Router } from "@angular/router";
 import { RouterTestingModule } from "@angular/router/testing";
 import { Store } from "@ngrx/store";
 import { MockStore, provideMockStore } from "@ngrx/store/testing";
 
-import { routerStoreFeatureName as RouterStoreFeatureName } from "./app.constants";
-import { routerState } from "./app.selectors";
 import {
   featureName as AppFeatureName,
   initialState as AppInitialState,
@@ -20,15 +19,13 @@ import {
 } from "./wordart.reducers";
 
 describe("TwitterComponent", () => {
+  let store: MockStore<any>;
+  let router: Router;
   let fixture: ComponentFixture<TwitterWordartComponent>;
   let component: TwitterWordartComponent;
-  let store: MockStore<any>;
 
   let initialState = {
     [AppFeatureName]: AppInitialState,
-    [RouterStoreFeatureName]: {
-      state: { params: {}, queryParams: {}, url: "/" },
-    },
     [WordartApiFeatureName]: WordartApiInitialState,
   };
 
@@ -40,18 +37,15 @@ describe("TwitterComponent", () => {
         FormsModule,
         MaterialComponents,
         ReactiveFormsModule,
-        RouterTestingModule,
+        RouterTestingModule.withRoutes([]),
       ],
-      providers: [
-        provideMockStore({
-          initialState,
-        }),
-      ],
+      providers: [provideMockStore({ initialState })],
     }).compileComponents();
 
+    store = TestBed.get(Store);
+    router = TestBed.get(Router);
     fixture = TestBed.createComponent(TwitterWordartComponent);
     component = fixture.debugElement.componentInstance;
-    store = TestBed.get(Store);
   }));
 
   it("should create the app", () => {
@@ -59,28 +53,8 @@ describe("TwitterComponent", () => {
   });
 
   it("should have a valid form", () => {
-    // component.selectForm.controls.selected.setValue("friends");
+    // component.selectForm.controls.selected.setValue("tweeted_at");
+    // fixture.detectChanges();
     expect(component.selectForm.valid).toEqual(true);
-  });
-
-  it("[setState] should have a valid selected state", () => {
-    store.setState({
-      ...initialState,
-      [RouterStoreFeatureName]: {
-        state: { params: {}, queryParams: { key: "friends" }, url: "/" },
-      },
-    });
-    fixture.detectChanges();
-    expect(component.selected.value).toEqual("friends");
-  });
-
-  it("[overrideSelector] should have a valid selected state", () => {
-    store.overrideSelector(routerState, {
-      params: {},
-      queryParams: { selected: "friends" },
-      url: "/",
-    });
-    fixture.detectChanges();
-    expect(component.selected.value).toEqual("friends");
   });
 });

@@ -7,7 +7,7 @@ export const featureName = "wordartApi";
 export const wordartApiInitialState: GeneralAPI = {
   error: null,
   loading: false,
-  resultSet: { payload: "", response: {} },
+  response: { payload: "", response: {} },
 };
 
 const WordartApiReducer = createReducer(
@@ -17,20 +17,21 @@ const WordartApiReducer = createReducer(
     ...state,
     error: null,
     loading: true,
-    resultSet: { ...state.resultSet, payload: action.payload },
+    response: { ...state.response, payload: action.payload },
   })),
 
   on(AppActions.wordartError, (state, action) => ({
     ...state,
     error: action.error,
     loading: false,
-    resultSet: { ...state.resultSet, response: {} },
+    response: { ...state.response, response: {} },
   })),
 
   on(AppActions.wordartSuccess, (state, action) => ({
     ...state,
+    error: null,
     loading: false,
-    resultSet: { ...state.resultSet, response: action.response },
+    response: { ...state.response, response: action.response },
   }))
 );
 

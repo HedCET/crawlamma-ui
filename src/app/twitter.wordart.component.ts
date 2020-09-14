@@ -49,7 +49,7 @@ export class TwitterWordartComponent implements OnInit {
 
     this.subscription.add(
       this.store.pipe(select(wordartApiState)).subscribe((r) => {
-        this.wordartResponse = r.resultSet.response;
+        this.wordartResponse = r.response.response;
         this.loading = r.loading;
 
         if (r.error) {

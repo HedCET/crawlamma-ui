@@ -39,7 +39,7 @@ describe("HttpService", () => {
     });
 
     const r = httpTestingController.expectOne(
-      `${environment.server_base_url}/wordart?key=`
+      `${environment.server_base_url}/wordart?key=&tags=`
     );
     expect(r.request.method).toBe("GET");
     r.flush(response);

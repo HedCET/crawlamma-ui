@@ -3,12 +3,12 @@
     <div
       fxLayout="row"
       fxLayoutAlign="end center"
-      style="padding: 12px 24px; width: 100vw;"
+      style="padding: 12px 24px; width: 100vw"
     >
       <div fxLayout="row wrap" fxLayoutAlign="start center" class="mat-small">
         TRENDS IN&nbsp;
         <form [formGroup]="selectForm">
-          <mat-form-field style="margin-top: 6px; width: 160px;">
+          <mat-form-field style="margin-top: 6px; width: 160px">
             <mat-label
               >{{
                 (
@@ -47,7 +47,7 @@
               <img
                 *ngIf="loading"
                 src="assets/loading.svg"
-                style="height: 20px;"
+                style="height: 20px"
             /></mat-hint>
           </mat-form-field>
         </form>
@@ -57,12 +57,12 @@
     <div
       fxLayout="column"
       fxLayoutAlign="center center"
-      style="height: 100vh; width: 100vw;"
+      style="height: 100vh; width: 100vw"
     >
       <div
         [attr.data-tagul-src]="getSrc(selected.value)"
         class="tagul-word-cloud"
-        style="height: 100%; width: 100%;"
+        style="height: 100%; width: 100%"
       >
         <canvas class="tagul-canvas"></canvas>
       </div>
@@ -71,14 +71,14 @@
     <div
       fxLayout="column"
       fxLayoutAlign="center end"
-      style="padding: 12px 24px; width: 100vw;"
+      style="padding: 12px 24px; width: 100vw"
     >
-      <div class="mat-small" style="font-size: x-small; line-height: 16px;">
+      <div class="mat-small" style="font-size: x-small; line-height: 16px">
         {{ wordartResponse[selected.value]?.hits?.length || "ZERO" }} TWEETER{{
           1 < (wordartResponse[selected.value]?.hits?.length || 1) ? "S" : ""
         }}
       </div>
-      <div class="mat-small" style="font-size: x-small; line-height: 16px;">
+      <div class="mat-small" style="font-size: x-small; line-height: 16px">
         FROM {{ getTimeString(wordartResponse[selected.value]?.startedAt) }}
       </div>
     </div>

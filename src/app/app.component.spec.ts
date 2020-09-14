@@ -4,13 +4,13 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { AppComponent } from "./app.component";
 
 describe("AppComponent", () => {
-  let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
-      imports: [RouterTestingModule]
+      imports: [RouterTestingModule.withRoutes([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);

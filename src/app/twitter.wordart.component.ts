@@ -120,7 +120,6 @@ export class TwitterWordartComponent implements OnInit {
 
   async addEventListener() {
     for (let i = 30; 0 < i; i--) {
-      console.log(i);
       await new Promise((r) => setTimeout(r, 1000));
 
       const elementRef = this.elementRef.nativeElement.querySelector(

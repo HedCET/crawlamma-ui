@@ -10,7 +10,7 @@ const twitterRoutes: Routes = [
   { component: TwitterWordartComponent, path: "wordart" },
 ];
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "twitter" },
   { children: twitterRoutes, component: TwitterComponent, path: "twitter" },
 ];

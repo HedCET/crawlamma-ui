@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
+import { debounce } from "lodash";
 import * as moment from "moment";
 import { Subscription } from "rxjs";
 import * as url from "url";
@@ -14,7 +15,6 @@ import { reloadScriptTag } from "../functions";
 
 @Component({
   selector: "wordart-component",
-  styleUrls: ["./twitter.wordart.component.css"],
   templateUrl: "./twitter.wordart.component.html",
 })
 export class TwitterWordartComponent implements OnInit {
@@ -52,15 +52,13 @@ export class TwitterWordartComponent implements OnInit {
         this.wordartResponse = r.response.response;
         this.loading = r.loading;
 
-        if (r.error) {
+        if (r.error)
           this.store.dispatch(
             AppActions.toast({
-              toast: JSON.stringify({
-                args: [r.error.message],
-              }),
+              toast: JSON.stringify({ args: [r.error.message] }),
             })
           );
-        } else {
+        else {
           reloadScriptTag(environment.wordart_min_js);
           this.addEventListener();
         }
@@ -80,14 +78,17 @@ export class TwitterWordartComponent implements OnInit {
     this.subscription.add(
       this.activatedRoute.queryParams.subscribe((queryParams) => {
         if (
-          -1 < this.services.indexOf(queryParams.key) &&
+          this.services.includes(queryParams.key) &&
           queryParams.key !== this.selected.value
         )
           this.selected.setValue(queryParams.key);
       })
     );
 
-    if (!this.activatedRoute.snapshot.queryParams.key)
+    if (
+      !this.activatedRoute.snapshot.queryParams.key ||
+      !this.services.includes(this.activatedRoute.snapshot.queryParams.key)
+    )
       this.updateQueryParams({ key: this.selected.value });
 
     window["DISPLAY_CLOUD_REDEFINE_URL_PATTERN"] = "https://twitter.com/";
@@ -118,28 +119,24 @@ export class TwitterWordartComponent implements OnInit {
     return moment(startedAt || undefined).format("YYYY-MM-DD hh:mm:ss A");
   }
 
-  addEventListener() {
-    const handle = setInterval(() => {
-      const document = this.elementRef.nativeElement;
-      const elementRef = document.querySelector("a.wordart-anchor");
+  private addEventListener = debounce(
+    async () => {
+      for (let i = 30; 0 < i; i--) {
+        await new Promise((r) => setTimeout(r, 1000));
 
-      if (elementRef) {
-        elementRef.addEventListener("click", this.clickEvent.bind(this));
-        clearInterval(handle);
+        const elementRef = this.elementRef.nativeElement.querySelector(
+          "a.wordart-anchor"
+        );
 
-        document
-          .querySelector("div.tagul-word-cloud")
-          .setAttribute(
-            "style",
-            `height: ${
-              document.querySelector("div.tagul-word-cloud")["offsetHeight"]
-            }px; width: ${
-              document.querySelector("div.tagul-word-cloud")["offsetWidth"]
-            }px;`
-          );
+        if (elementRef) {
+          elementRef.addEventListener("click", this.clickEvent.bind(this));
+          break;
+        }
       }
-    }, 1000);
-  }
+    },
+    1000 * 30,
+    { leading: true, trailing: false }
+  );
 
   clickEvent(event: Event) {
     event.preventDefault();

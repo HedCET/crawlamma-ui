@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
-import { debounce } from "lodash";
 import * as moment from "moment";
 import { Subscription } from "rxjs";
 import * as url from "url";
@@ -119,24 +118,21 @@ export class TwitterWordartComponent implements OnInit {
     return moment(startedAt || undefined).format("YYYY-MM-DD hh:mm:ss A");
   }
 
-  private addEventListener = debounce(
-    async () => {
-      for (let i = 30; 0 < i; i--) {
-        await new Promise((r) => setTimeout(r, 1000));
+  async addEventListener() {
+    for (let i = 30; 0 < i; i--) {
+      console.log(i);
+      await new Promise((r) => setTimeout(r, 1000));
 
-        const elementRef = this.elementRef.nativeElement.querySelector(
-          "a.wordart-anchor"
-        );
+      const elementRef = this.elementRef.nativeElement.querySelector(
+        "a.wordart-anchor"
+      );
 
-        if (elementRef) {
-          elementRef.addEventListener("click", this.clickEvent.bind(this));
-          break;
-        }
+      if (elementRef) {
+        elementRef.addEventListener("click", this.clickEvent.bind(this));
+        break;
       }
-    },
-    1000 * 30,
-    { leading: true, trailing: false }
-  );
+    }
+  }
 
   clickEvent(event: Event) {
     event.preventDefault();

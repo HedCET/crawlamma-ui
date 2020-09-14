@@ -91,7 +91,7 @@ describe("TwitterComponent", () => {
 
     fixture.detectChanges();
 
-    tick(1000 * 30);
+    tick(1000 * 60);
     expect(component.selected.value).toEqual("tweeted_at");
   }));
 });

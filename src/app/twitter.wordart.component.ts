@@ -119,8 +119,8 @@ export class TwitterWordartComponent implements OnInit {
   }
 
   async addEventListener() {
-    for (let i = 30; 0 < i; i--) {
-      await new Promise((r) => setTimeout(r, 1000));
+    for (let i = 10; 0 < i; i--) {
+      await new Promise((r) => setTimeout(r, 3000));
 
       const elementRef = this.elementRef.nativeElement.querySelector(
         "a.wordart-anchor"

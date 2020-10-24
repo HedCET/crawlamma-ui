@@ -24,7 +24,7 @@
                   let option of wordartResponse | objectKeys;
                   let i = index
                 "
-                [ngStyle]="{ borderTop: i ? '2px dotted #e0e0e0' : '' }"
+                [ngStyle]="{ borderTop: i ? '1px solid #f5f5f5' : '' }"
                 disabled="{{ !wordartResponse[option].hits.length }}"
                 value="{{ option }}"
                 >{{
